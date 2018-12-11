@@ -1,0 +1,57 @@
+l1 65 mm
+l2 80 mm 
+
+r1 15
+r2 30
+
+codeur
+
+us digital
+e4p 360 079 dhtb
+j14891
+
+moteur
+maxon a-max
+110138
+757583
+
+
+eQEP:
+	config-pin p8.11 qep
+	config-pin p8.12 qep
+	
+	config-pin p9.27 qep
+	config-pin p9.92 qep
+
+	/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep# cat position
+	/sys/devices/platform/ocp/48300000.epwmss/48300180.eqep# cat position
+ 
+
+
+pwm:
+
+
+	/sys/devices/platform/bone_capemgr# echo cape-universaln > slots
+	config-pin  P9.14 pwm
+	config-pin  P9.16 pwm
+
+	/sys/devices/platform/ocp/48302000.epwmss/48302200.pwm/pwm/pwmchip3# echo 0 > export
+	/sys/devices/platform/ocp/48302000.epwmss/48302200.pwm/pwm/pwmchip3# echo 1 > export
+
+
+	/sys/class/pwm/pwmchip3/pwm0#
+	/sys/class/pwm/pwmchip3/pwm1#
+
+	echo 1 > enable 
+	echo 500000 > duty_cycle
+	echo 250000 > duty_cycle
+
+gpio:
+	config-pin P9.15 gpio
+	config-pin P9.13 gpio
+
+	/sys/class/gpio/gpio31#
+	/sys/class/gpio/gpio48#
+
+	echo out > direction
+	echo 1 > value
