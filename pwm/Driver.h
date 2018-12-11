@@ -10,7 +10,7 @@
 // Driver driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/");
 // driver1.write(-50);
 
-//#define DEBUG_DRIVER
+#define DEBUG_DRIVER
 
 #ifndef DRIVER_H
 #define DRIVER_H

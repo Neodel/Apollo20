@@ -33,12 +33,15 @@ Driver::Driver(std::string pwmPath, std::string gpioPath){
     std::string value = this->_gpioPath+"value";
     this->_gpio.open(value.c_str());
     
+    
     // set gpio as output
     std::string direction = this->_pwmPath+"direction";
     std::ofstream direction_file;
     direction_file.open(direction.c_str());
     direction_file <<  "out" << std::endl;
     direction_file.close();
+    
+    this->_gpio << 1 << std::endl;
     
     // set speed to 0
     this->write(0);
@@ -51,21 +54,24 @@ Driver::Driver(std::string pwmPath, std::string gpioPath){
 }
 
 Driver::~Driver(){
+    #ifndef DEBUG_DRIVER
+        this->_gpio << 0 << std::endl;
+    #endif
+    
     this->_gpio.close();
     this->_dutyCycle.close();
 }
 
 void Driver::write(int value){
-    if (value < 0){
-        // gpio to 1 
-        this->_gpio << 1 << std::endl;
-        value = this->_period*(1-value)/100;
-    }
-    else{
-        // gpio to 0
-        this->_gpio << 0 << std::endl;
-        value = this->_period*value/100;
-    }
+    
+    
+    //  100 > 100
+    //  0   > 50
+    // -100 > 0
+    
+
+    value = this->_period*((value/2)+50)/100;
+
     this->_value = value;
     
     this->_dutyCycle << value << std::endl;
@@ -81,7 +87,8 @@ void Driver::write(int value){
     int main(void){
         Driver driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/");
         Driver driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/");
-        driver1.write(-50);
+        driver1.write(-90);
+        driver2.write(50); // ok pin 14 pwm - 13 gpio
     }
     
 #endif
