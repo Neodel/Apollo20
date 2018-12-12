@@ -9,37 +9,75 @@ O2 = [d 0];
 % pivot droit X organe terminal
 %% Résolution équation intersection deux cercles 
 %Système équation O1-X
-a1 = (l1*l1 - l2*l2 + x*x - O1(1)*O1(1) + y*y - O1(2)*O1(2))/(2*(y-O1(2)));
-d1 = (x-O1(1))/(y-O1(2));
-A1 = d1*d1 + 1;
-B1 = 2*y*d1 -2*a1*d1 - 2*x;
-C1 = x*x + y*y + a1*a1 - l2*l2 - 2*y*a1;
-delta1 = B1*B1 -4*A1*C1;
-%Système O2-X
-a2 = (l1*l1 - l2*l2 + x*x - O2(1)*O2(1) + y*y - O2(2)*O2(2))/(2*(y-O2(2)));
-d2 = (x-O2(1))/(y-O2(2));
-A2 = d2*d2 + 1;
-B2 = -2*x + 2*y*d2 -2*a2*d2;
-C2 = x*x + y*y - 2*y*a2 +a2*a2 - l2*l2;
-delta2 = B2*B2 -4*A2*C2;
-%Si le point n'est pas atteignable
-if(delta1 <0 || delta2 <0)
-    disp('Pas possible');
+% a1 = (l1*l1 - l2*l2 + x*x - O1(1)*O1(1) + y*y - O1(2)*O1(2))/(2*(y-O1(2)));
+% d1 = (x-O1(1))/(y-O1(2));
+% A1 = d1*d1 + 1;
+% B1 = 2*O1(2)*d1 -2*a1*d1 - 2*O1(1);
+% C1 = O1(1)*O1(1) + O1(2)*O1(2) + a1*a1 - l1*l1 - 2*O1(2)*a1;
+% delta1 = B1*B1 -4*A1*C1;
+% %Système O2-X
+% a2 = (l1*l1 - l2*l2 + x*x - O2(1)*O2(1) + y*y - O2(2)*O2(2))/(2*(y-O2(2)));
+% d2 = (x-O2(1))/(y-O2(2));
+% A2 = d2*d2 + 1;
+% B2 = -2*O2(1) + 2*O2(2)*d2 -2*a2*d2;
+% C2 = O2(1)*O2(1) + O2(2)*O2(2) - 2*O2(2)*a2 +a2*a2 - l1*l1;
+% delta2 = B2*B2 -4*A2*C2;
+% %Si le point n'est pas atteignable
+% if(delta1 <0 || delta2 <0)
+%     disp('Pas possible');
+%     return;
+% else
+%     OG1X = (-B1+sqrt(delta1))/2*A1;
+%     OG2X = (-B1-sqrt(delta1))/2*A1;
+%     Og = min(OG1X,OG2X);
+%     OG = [ Og (a1 -Og*d1)];
+%     OG1 = [ OG1X (a1 -OG1X*d1)];
+%     OG2 = [OG2X (a1-OG2X*d1)];
+%       
+%     OD1X = (-B2+sqrt(delta2))/2*A2;
+%     OD2X = (-B2-sqrt(delta2))/2*A2;
+%     Od = max(OD1X,OD2X);
+%     OD = [ Od (a2-Od*d2)];
+%     OD1 = [ OD1X (a2 -OD1X*d2)];
+%     OD2 = [OD2X (a2-OD2X*d2)];
+% end
+%%Second test : 
+R1 = sqrt((x-O1(1))*(x-O1(1))+(y-O1(2))*(y-O1(2)));
+ua1 = [(x-O1(1))/R1 (y-O1(2))/R1];
+ub1 = [ ua1(2) -ua1(1)];
+c1 = [(x+O1(1))/2 (y+O1(2))/2];
+if(R1 > l1+l2)
+    disp('Pas possible O1');
     return;
+end
+a1 = (l1*l1 - l2*l2)/(2*R1);
+b11 = sqrt((l1*l1+l2*l2)/2 -(l1*l1-l2*l2)*(l1*l1-l2*l2)/(4*R1*R1) -R1*R1/4);
+b12 = -sqrt((l1*l1+l2*l2)/2 -(l1*l1-l2*l2)*(l1*l1-l2*l2)/(4*R1*R1) -R1*R1/4);
+OG1 = c1 + a1*ua1 + b11*ub1;
+OG2 = c1 + a1*ua1 + b12*ub1;
+if(OG1(1) < OG2(1))
+    OG = OG1;
 else
-    OG1X = (-B1+sqrt(delta1))/2*A1;
-    OG2X = (-B1-sqrt(delta1))/2*A1;
-    Og = min(OG1X,OG2X);
-    OG = [ Og (a1 -Og*d1)];
-    OG1 = [ OG1X (a1 -OG1X*d1)];
-    OG2 = [OG2X (a1-OG2X*d1)];
-      
-    OD1X = (-B2+sqrt(delta2))/2*A2;
-    OD2X = (-B2-sqrt(delta2))/2*A2;
-    Od = max(OD1X,OD2X);
-    OD = [ Od (a2-Od*d2)];
-    OD1 = [ OD1X (a2 -OD1X*d2)];
-    OD2 = [OD2X (a2-OD2X*d2)];
+    OG = OG2;
+end
+
+R2 = sqrt((x-O2(1))*(x-O2(1))+(y-O2(2))*(y-O1(2)));
+ua2 = [(x-O2(1))/R2 (y-O2(2))/R2];
+ub2 = [ ua2(2) -ua2(1)];
+c2 = [(x+O2(1))/2 (y+O2(2))/2];
+if(R2 > l1+l2)
+    disp('Pas possible O2');
+    return;
+end
+a2 = (l1*l1 - l2*l2)/(2*R2);
+b21 = sqrt((l1*l1+l2*l2)/2 -(l1*l1-l2*l2)*(l1*l1-l2*l2)/(4*R2*R2) -R2*R2/4);
+b22 = -sqrt((l1*l1+l2*l2)/2 -(l1*l1-l2*l2)*(l1*l1-l2*l2)/(4*R1*R1) -R2*R2/4);
+OD1 = c2 + a2*ua2 + b21*ub2;
+OD2 = c2 + a2*ua2 + b22*ub2;
+if(OD1(1) < OD2(1))
+    OD = OG2;
+else
+    OD = OD1;
 end
 %% Calcul orientation du modèle
 % Création des vecteurs
@@ -52,8 +90,8 @@ L12 = norm(O2D)
 L21 = norm(GX)
 L22 = norm(DX)
 % Calcul de l'orientation
-q1 = acos(dot(O1G,[1 0])/norm(O1G));
-q2 = acos(dot(O2D, [1 0])/norm(O2D));
+q1 = acos(dot(O1G,[1 0])/norm(O1G))
+q2 = acos(dot(O2D, [1 0])/norm(O2D))
 
 %% Dessin 
 th = 0:pi/50:2*pi;
