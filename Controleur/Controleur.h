@@ -2,12 +2,14 @@
 #define CONTROLEUR_H
 
 #include <unistd.h>
+#include <vector>
 
 #include "Driver.h"
 #include "Pid.h"
 #include "Codeur.h"
+#include "Point.h"
 
-#define DEBUG_CONTROLEUR
+//#define DEBUG_CONTROLEUR
 
 #define TIC_CODEUR 400
 #define REDUCTION 2
@@ -18,12 +20,16 @@
 
 #define SEUIL 5
 
+#define TEMPO 100000
+
 class Controleur {
     
     public:
         Controleur();
         
         void write(float m1, float m2);
+        
+        void write(std::vector<Point*>);
         
         void loop();
         

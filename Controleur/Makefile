@@ -3,9 +3,9 @@ CFLAGS=-WALL
 
 DEPS = Codeur.h Controleur.h Driver.h Pid.h
 
-TARGET = Controleur
+TARGET = Main
 
-OBJ = Codeur.o Controleur.o Driver.o Pid.o
+OBJ = Codeur.o Controleur.o Driver.o Pid.o Main.o
 
 
 all : $(TARGET)

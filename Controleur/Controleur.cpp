@@ -17,6 +17,15 @@ Controleur::Controleur():
     this->_target2 = this->_getPos2();
 }
 
+void Controleur::write(std::vector<Point*> points ){
+    for (auto p : points) {
+	   this->write(p->x, p->y);
+	   while(! this->achieved())
+	    this->loop();
+	}
+}
+
+
 inline float Controleur::_getPos1(){
     return this->_codeur1.read() * this->_ratio;
 }
