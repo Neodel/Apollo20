@@ -4,17 +4,17 @@
 class Pid {
     
     private:
-        int _kp;
-        int _kd;
-        int _ki;
-        int _error;
-        int _previous_error;
-        int _sum_error;
+        float _kp;
+        float _kd;
+        float _ki;
+        float _error;
+        float _previous_error;
+        float _sum_error;
         
         int _correction;
     
     public:
-        Pid(int kp, int kd, int ki);
+        Pid(float kp, float kd, float ki);
         int correction(int error);
         
     

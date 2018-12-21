@@ -8,8 +8,8 @@ Controleur::Controleur():
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
     
-    _pid1(1,0,0),
-    _pid2(1,0,0),
+    _pid1(3.0,0.0,0.0),
+    _pid2(10.0,0.0,0.0),
     
     _ratio( 2 * PI / (TIC_CODEUR * REDUCTION))
 {
@@ -47,7 +47,7 @@ void Controleur::loop(){
     this->_driver1.write(this->_order1);
     this->_driver2.write(this->_order2);
     
-    #ifdef DEBUG_CONTROLEUR
+    #ifndef DEBUG_CONTROLEUR
         std::cout << "loop 1 , pos: " << this->getPos1() << " target: " ;
         std::cout << this->_target1 << " order: " << this->_order1 ;
         std::cout << " achieved: " << this->achieved() ;
@@ -59,8 +59,8 @@ void Controleur::loop(){
 }
 
 bool Controleur::achieved(){
-    return  (this->_order1 < SEUIL) && (this->_order2 < SEUIL) &&  
-            (this->_order1 > -SEUIL) && (this->_order2 > -SEUIL);
+    return  (this->getPos1()-this->_target1  < SEUIL) && (this->getPos2()-this->_target2 < SEUIL) &&  
+            (this->getPos1()-this->_target1 > -SEUIL) && (this->getPos2()-this->_target2 > -SEUIL);
 }
 
 

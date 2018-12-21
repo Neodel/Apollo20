@@ -1,14 +1,14 @@
 #include "Pid.h"
 
 
-Pid::Pid(int kp, int kd, int ki) {
+Pid::Pid(float kp, float kd, float ki) {
      /* To do : regler a la main */
     _kp = kp;
     _kd = kd;
     _ki = ki;
-    _error = 0;
-    _previous_error = 0;
-    _sum_error = 0;
+    _error = 0.0;
+    _previous_error = 0.0;
+    _sum_error = 0.0;
  }
 
 int Pid::correction(int error){ 

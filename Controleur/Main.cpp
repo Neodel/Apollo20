@@ -10,6 +10,12 @@
 
 #include "Point.h"
 
+#include <cmath>
+
+using namespace std;
+
+
+
 std::vector<Point*> readFile(const char * nameFile);
 
 #if (! defined(DEBUG_CONTROLEUR)) && (! defined(DEBUG_CODEUR))
