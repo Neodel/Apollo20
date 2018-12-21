@@ -3,35 +3,46 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <signal.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
 #include "Point.h"
 
 std::vector<Point*> readFile(const char * nameFile);
 
-int main(void){
-    
-   
-	std::vector<Point*> points = readFile("data.txt");
+#if (! defined(DEBUG_CONTROLEUR)) && (! defined(DEBUG_CODEUR))
+
+	int main(void){
+	    
+	   
+		std::vector<Point*> points = readFile("data.txt");
+	    
+	    
+	    // modele inverse points -> points
+	    
+	    Controleur controleur;
+	    
+	    //controleur.write(points);
+
+
+	    for (auto p : points) {
+		   controleur.write(p->x, p->y);
+		   std::cout<< p->x << " | " << p->y <<std::endl;
+		   do{
+		   		controleur.loop();
+		   		usleep(100000);
+		   }while(!controleur.achieved());
+		         
+		}
+		
 	
-	for (auto p : points) {
-	    std::cout<< p->x << " | " << p->y <<std::endl;
+	    
+	    
 	}
-    
-    
-    // modele inverse points -> points
-    
-    Controleur controleur;
-    
-    controleur.write(points);
-    
-/*    for (auto p : points) {
-	   controleur.write(p->x, p->y);
-	   while(! controleur.achieved())
-	         controleur.loop();
-	}*/
-    
-    
-    
-}
+	
+#endif
 
 
 std::vector<Point*> readFile(const char * nameFile){

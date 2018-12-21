@@ -13,24 +13,24 @@ Controleur::Controleur():
     
     _ratio( 2 * PI / (TIC_CODEUR * REDUCTION))
 {
-    this->_target1 = this->_getPos1();
-    this->_target2 = this->_getPos2();
+    this->_target1 = this->getPos1();
+    this->_target2 = this->getPos2();
 }
 
 void Controleur::write(std::vector<Point*> points ){
     for (auto p : points) {
 	   this->write(p->x, p->y);
 	   while(! this->achieved())
-	    this->loop();
+	        this->loop();
 	}
 }
 
 
-inline float Controleur::_getPos1(){
+float Controleur::getPos1(){
     return this->_codeur1.read() * this->_ratio;
 }
 
-inline float Controleur::_getPos2(){
+float Controleur::getPos2(){
     return this->_codeur2.read() * this->_ratio;
 }
 
@@ -41,18 +41,18 @@ void Controleur::write(float m1, float m2){
 
 void Controleur::loop(){
     
-    this->_order1 = this->_pid1.correction(this->_target1 - this->_getPos1());
-    this->_order2 = this->_pid2.correction(this->_target2 - this->_getPos2());
+    this->_order1 = this->_pid1.correction(this->_target1 - this->getPos1());
+    this->_order2 = this->_pid2.correction(this->_target2 - this->getPos2());
     
     this->_driver1.write(this->_order1);
     this->_driver2.write(this->_order2);
     
     #ifdef DEBUG_CONTROLEUR
-        std::cout << "loop 1 , pos: " << this->_getPos1() << " target: " ;
+        std::cout << "loop 1 , pos: " << this->getPos1() << " target: " ;
         std::cout << this->_target1 << " order: " << this->_order1 ;
         std::cout << " achieved: " << this->achieved() ;
         
-        std::cout << "    loop 2 , pos: " << this->_getPos2() << " target: " ;
+        std::cout << "    loop 2 , pos: " << this->getPos2() << " target: " ;
         std::cout << this->_target2 << " order: " << this->_order2 ;
         std::cout << " achieved: " << this->achieved() << std::endl;
     #endif
@@ -69,13 +69,11 @@ bool Controleur::achieved(){
     int main(void){
         Controleur controleur;
         
-        int tempo = 100000;
-        int iter = 10;
+        std::cout<< "pos 1 "<< controleur.getPos1()  << " pos 2 " << controleur.getPos2() << std::endl;
         
-        for(int i=0; i<iter ; i++){
-            controleur.loop();
-            usleep(tempo);
-        }
+        int tempo = 100000;
+        int iter = 100;
+
         
         controleur.write(100,100);
         
@@ -84,12 +82,6 @@ bool Controleur::achieved(){
             usleep(tempo);
         }
         
-        controleur.write(-100,-100);
-        
-        for(int i=0; i<iter ; i++){
-            controleur.loop();
-            usleep(tempo);
-        }
         
     }
 

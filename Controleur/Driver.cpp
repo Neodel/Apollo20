@@ -15,7 +15,7 @@ Driver::Driver(std::string pwmPath, std::string gpioPath){
     this->_dutyCycle.open(duty.c_str());
     
     // set period
-    this->_period = 500000;
+    this->_period = 100000;
     std::string period = this->_pwmPath+"period";
     std::ofstream period_file;
     period_file.open(duty.c_str());

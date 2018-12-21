@@ -18,7 +18,7 @@
 
 #define RATIO 
 
-#define SEUIL 5
+#define SEUIL 10
 
 #define TEMPO 100000
 
@@ -34,11 +34,11 @@ class Controleur {
         void loop();
         
         bool achieved();
+        
+        float getPos1();
+        float getPos2();
 
     private:
-    
-        inline float _getPos1();
-        inline float _getPos2();
     
         float  _target1, _target2;
         

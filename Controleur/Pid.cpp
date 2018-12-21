@@ -10,7 +10,7 @@ Pid::Pid(int kp, int kd, int ki) {
     _previous_error = 0;
     _sum_error = 0;
  }
-    
+
 int Pid::correction(int error){ 
     
     this->_previous_error = _error;
