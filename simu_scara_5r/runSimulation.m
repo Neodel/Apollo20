@@ -1,3 +1,7 @@
+clc
+clean all
+clear all
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Simulation : Scara Robot parallel 5R
 %
@@ -9,11 +13,8 @@ l1 = 0.065;
 l2 = 0.08;
 
 % motor cmd
-q1 = 5*pi/6;
-q5 = pi/4;
+q1 = pi/3;
+q5 = 0;
 
 % Simulation
 drawModel( q1, q5, l, l1, l2 );
-
-
-
