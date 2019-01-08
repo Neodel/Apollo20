@@ -17,7 +17,7 @@ X3 = [l1*cos(q1) + l2* cos(q1-q2) ; l1*sin(q1) + l2* sin(q1-q2) ];
 
 qterm = pi/4;
 lterm = 0.012;
-XTERM = X3 + [ lterm*cos(qterm)  ; lterm*sin(qterm) ];
+XTERM = X3 + [ lterm*cos(qterm)  ; lterm*sin(qterm) ]
 %XTERM = [l1*cos(q1) + (l2+0.012)* cos(q1-q2) ; l1*sin(q1) + (l2+0.012)* sin(q1-q2) ];
 
 

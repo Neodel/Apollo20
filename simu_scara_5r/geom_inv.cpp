@@ -63,15 +63,15 @@ Cmd geomInv(Point X)
 	Point O3 = interCerle(O2, L2, X, LT, RIGHT_SOL); // solution de droite !!!
 	Point O4 = interCerle(O5, L1, O3, L2, RIGHT_SOL); // idem
 	
-	float q1 = acos(O1.x*O2.x/L1);
-	float q5 = acos(O5.x*O4.x/L1);
+	float q1 = acos(O2.x-O1.x/L1);
+	float q5 = acos(O4.x-O5.x/L1);
 	
 	return Cmd(q1,q5); 
 }
 
-int main()
+/*int main()
 {
 	Cmd cmd = geomInv(Point(0.01,0.1));
     std::cout << "q1 = " << cmd.q1 << ",q2 = " << cmd.q5 << '\n';
     return 1;
-}
+}*/

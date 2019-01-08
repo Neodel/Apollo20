@@ -1,6 +1,3 @@
-clc
-clean all
-clear all
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Simulation : Scara Robot parallel 5R
