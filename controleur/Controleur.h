@@ -12,12 +12,12 @@
 //#define DEBUG_CONTROLEUR
 
 #define TIC_CODEUR 360
-#define REDUCTION 2
+#define REDUCTION 1.9
 
 #define PI 3.14159265
 
 
-#define SEUIL 0.3
+#define SEUIL 0.5
 
 #define TEMPO 100000
 

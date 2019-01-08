@@ -58,3 +58,11 @@ gpio:
 
 	echo out > direction
 	echo 1 > value
+
+
+
+
+
+ 100 > 100
+ 0   > 50
+-100 > 0

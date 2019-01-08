@@ -33,14 +33,14 @@ std::vector<Point*> readFile(const char * nameFile);
 	    //controleur.write(points);
 
 
-	    for (auto p : points) {
+	    for (auto p : points) { // segfault at the end ...
 		   controleur.write(p->x, p->y);
 		   std::cout<< p->x << " | " << p->y <<std::endl;
 		   do{
 		   		controleur.loop();
 		   		usleep(100000);
 		   }while(!controleur.achieved());
-		         
+		        
 		}
 		
 	
