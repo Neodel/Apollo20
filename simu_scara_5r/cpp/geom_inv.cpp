@@ -1,16 +1,11 @@
 #include <iostream>
 #include <cmath>
+
+
 #include "Point.h"
+#include "geom_inv.hpp"
 
 using namespace std;
-
-#define COSPI_4 sqrt(2)/2
-#define L1 0.065
-#define L2 0.08
-#define D 0.02
-#define LT 0.01
-
-#define R_OT_O2 sqrt( (L2 + LT*sqrt(2)/2)*(L2 + LT*sqrt(2)/2) +  (LT*sqrt(2)/2)*(LT*sqrt(2)/2) ) // = rayon1
 
 
 
@@ -22,7 +17,6 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side)
 	Point v1( u1.y, -u1.x); // vecteur unitaire orthogonal à u1
 	
 	Point c( (p1.x+p2.x)/2 , (p1.y+p2.y)/2 ); // centre de p1p2
-	
 	
 	if( distPts > r1+r2)
 	{
@@ -51,27 +45,26 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side)
 			else return s2;
 		}
 	}
-	
 } 
 
 Cmd geomInv(Point X)
 {
 	Point O1(0,0);
-	Point O5(0,D);
+	Point O5(D,0);
 
 	Point O2 = interCerle(O1, L1, X, R_OT_O2, LEFT_SOL);
 	Point O3 = interCerle(O2, L2, X, LT, RIGHT_SOL); // solution de droite !!!
 	Point O4 = interCerle(O5, L1, O3, L2, RIGHT_SOL); // idem
 	
-	float q1 = acos(O2.x-O1.x/L1);
-	float q5 = acos(O4.x-O5.x/L1);
+	float q1 = acos((O2.x-O1.x)/L1);
+	float q5 = acos((O4.x-O5.x)/L1);
 	
 	return Cmd(q1,q5); 
 }
 
-/*int main()
+int main()
 {
-	Cmd cmd = geomInv(Point(0.01,0.1));
+	Cmd cmd = geomInv(Point(0.1,0.1));
     std::cout << "q1 = " << cmd.q1 << ",q2 = " << cmd.q5 << '\n';
     return 1;
-}*/
+}

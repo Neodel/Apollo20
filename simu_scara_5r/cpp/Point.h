@@ -2,6 +2,8 @@
 #define POINT_H
 
 
+#include <cmath>
+
 struct Point{
 	float x;
 	float y;
@@ -11,6 +13,17 @@ struct Point{
 	
 	Point() : x(-1), y(-1)
 	{}
+	
+	float norm()
+	{
+		return sqrt(this->x*this->x + this->y*this->y);
+	}
+	
+	static float dot(Point x1, Point x2)
+	{
+		return (x1.x*x2.x + x1.y*x2.y);
+	}	
+	
 };
 
 
