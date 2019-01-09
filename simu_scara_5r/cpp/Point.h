@@ -1,6 +1,11 @@
 #ifndef POINT_H
 #define POINT_H
 
+/*!
+ * \file Point.h
+ * \brief Definition d'un point pour les modeles geometriques
+ * \version 1
+ */
 
 #include <cmath>
 
