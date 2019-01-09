@@ -8,8 +8,8 @@ Controleur::Controleur():
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
     
-    _pid1(3.0,0.0,0.0),
-    _pid2(10.0,0.0,0.0),
+    _pid1(6,0.2,0.0001), // 6
+    _pid2(6,0.2,0.0001),
     
     _ratio( 2 * PI / (TIC_CODEUR * REDUCTION))
 {
@@ -59,8 +59,8 @@ void Controleur::loop(){
 }
 
 bool Controleur::achieved(){
-    return  (this->getPos1()-this->_target1  < SEUIL) && (this->getPos2()-this->_target2 < SEUIL) &&  
-            (this->getPos1()-this->_target1 > -SEUIL) && (this->getPos2()-this->_target2 > -SEUIL);
+    return  ( this->getPos1()-this->_target1  < SEUIL) && ( this->getPos2()-this->_target2 < SEUIL) &&  
+            (-this->getPos1()-this->_target1  < SEUIL) && (-this->getPos2()-this->_target2 > SEUIL);
 }
 
 
