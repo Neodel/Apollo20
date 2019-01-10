@@ -3,12 +3,18 @@
 
 /*!
  * \file Point.h
- * \brief Definition d'un point pour les modeles geometriques
+ * \brief Definition of two classes usefull for geometric models
  * \version 1
  */
 
 #include <cmath>
 
+
+/*!
+ * \class Point [<Point.h>]
+ * \brief Definition of a 2D point
+ * \version 1
+ */
 struct Point{
 	float x;
 	float y;
@@ -31,7 +37,11 @@ struct Point{
 	
 };
 
-
+/*!
+ * \class Cmd [<Point.h>]
+ * \brief Definition of an angular command for the system
+ * \version 1
+ */
 struct Cmd{
 	float q1;
 	float q5;
