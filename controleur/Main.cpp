@@ -17,7 +17,6 @@
 using namespace std;
 
 
-
 std::vector<Point> readPathFile(const char * nameFile);
 
 #if (! defined(DEBUG_CONTROLEUR)) && (! defined(DEBUG_CODEUR))
@@ -87,57 +86,7 @@ std::vector<Point> readPathFile(const char * nameFile);
 	
 #endif
 
-/*
-std::vector<Point> readFile(const char * nameFile){
-    
-    std::ifstream input_file;
-     
-    input_file.open(nameFile);
-    
-    if (! input_file) 
-        std::cout<<"fail to open file"<<std::endl;
-        
-    std::vector<Point*> points;
-    
-    std::string buffer ;
-    
-    std::string bufferX ;
-    std::string bufferY ;
-    int x = 0;
-  
-    while(!input_file.eof()){
-		getline(input_file,buffer,'\n');
-		
-		x=0;
-		bufferX = "";
-		bufferY = "";
-		for (auto c : buffer) {
-		    if(c == ','){
-		        x=1;
-		    }
-		    else if( x == 0){
-		        bufferX += c;
-		    }
-		    else if( x == 1){
-		        bufferY += c;
-		    }
-		}
-		
-		std::cout << "pt lu : x=" << stof(bufferX) << " y=" << stof(bufferY) << std::endl;
-		
-		points.push_back(new Point);
-		points.back()->x = stof(bufferX); // revesed (12_01_19)
-		points.back()->y = stof(bufferY);
 
-	}
-	std::cout << "nb pt=" << points.size() << std::endl;
-	
-	input_file.close();
-	
-	return points;
-    
-}
-*/
 
 std::vector<Point> readPathFile(const char * nameFile)
 {
