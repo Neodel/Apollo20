@@ -3,7 +3,7 @@
 
 
 #include "Point.h"
-#include "geom_inv.hpp"
+#include "geom_inv.h"
 
 using namespace std;
 
@@ -62,9 +62,11 @@ Cmd geomInv(Point X)
 	return Cmd(q1,q5); 
 }
 
+#ifdef DEBUG_GEOM_INV
 int main()
 {
 	Cmd cmd = geomInv(Point(0.1,0.1));
     std::cout << "q1 = " << cmd.q1 << ",q2 = " << cmd.q5 << '\n';
     return 1;
 }
+#endif

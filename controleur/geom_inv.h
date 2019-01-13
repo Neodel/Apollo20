@@ -1,6 +1,8 @@
 #ifndef GEOM_INVERSE_HPP
 #define GEOM_INVERSE_HPP
 
+//#define DEBUG_GEOM_INV
+
 /*!
  * \file geom_inv.hpp
  * \brief Inverse geometric model's resolution

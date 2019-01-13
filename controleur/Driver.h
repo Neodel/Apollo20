@@ -35,4 +35,7 @@ private:
     
     int _period;
     int _value;
-    
+  
+};
+
+#endif
