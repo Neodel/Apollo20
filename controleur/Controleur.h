@@ -26,11 +26,11 @@ class Controleur {
     public:
         Controleur();
         
-        void write(float m1, float m2);
+        void write(float const& m1, float const& m2);
         
-        void write(Cmd cmd);
+        void write(Cmd const& cmd);
         
-        void write(std::vector<Point*>);
+        void write(std::vector<Point> const& points);
         
         void set(Cmd cmd);
         

@@ -46,10 +46,10 @@ std::vector<Point> readPathFile(const char * nameFile);
 	    std::cout << "init : " << controleur.getPos1() << " "<< controleur.getPos2() << std::endl;
 	    
 	    
-	    //controleur.write(points);
+	    //controleur.write(points); 
 
 
-	    for (auto p : vPoints2Reach) { // segfault at the end ...
+	    for (auto p : vPoints2Reach) {
 	    
 		   cmd = geomInv(p);
 		   controleur.write(cmd);
@@ -67,9 +67,9 @@ std::vector<Point> readPathFile(const char * nameFile);
 		
 		
 		/*
-		for (auto p : points) { // segfault at the end ...
-		   controleur.write(p->x, p->y);
-		   std::cout<< p->x << " | " << p->y <<std::endl;
+		for (auto p : vPoints2Reach) {
+		   controleur.write(p.x, p.y);
+		   std::cout<< p.x << " | " << p.y <<std::endl;
 		   do{
 		   		controleur.loop();
 		   		usleep(100000);
@@ -77,10 +77,7 @@ std::vector<Point> readPathFile(const char * nameFile);
 		        
 		}
 		*/
-		
-		
-	
-	    
+ 
 	    
 	}
 	
@@ -112,11 +109,11 @@ std::vector<Point> readPathFile(const char * nameFile)
 	else
 		std::cout << "Error : unable to open " << nameFile << std::endl;
 	
-	/* for debugging if necessary :
+	// for debugging if necessary :
 	std::cout << "size="<<vpOutput.size()<<std::endl;
 	for (auto&& p: vpOutput)
 		std::cout << "x="<<p.x<<" y="<<p.y<<std::endl;
-	*/
+	
 	return vpOutput;
 	
 }
