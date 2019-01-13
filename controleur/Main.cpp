@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <signal.h>
 #include <stdlib.h>
@@ -17,14 +18,14 @@ using namespace std;
 
 
 
-std::vector<Point*> readFile(const char * nameFile);
+std::vector<Point> readPathFile(const char * nameFile);
 
 #if (! defined(DEBUG_CONTROLEUR)) && (! defined(DEBUG_CODEUR))
 
 	int main(void){
 	    
 	   
-		std::vector<Point*> points = readFile("data.txt");
+		std::vector<Point> vPoints2Reach = readPathFile("data.txt");
 
 		Point org;
 		org.x = 0.012;
@@ -49,9 +50,9 @@ std::vector<Point*> readFile(const char * nameFile);
 	    //controleur.write(points);
 
 
-	    for (auto p : points) { // segfault at the end ...
+	    for (auto p : vPoints2Reach) { // segfault at the end ...
 	    
-		   cmd = geomInv(*p);
+		   cmd = geomInv(p);
 		   controleur.write(cmd);
 		   bool ok;
 		   std::cout<< cmd.q1 << " | " << cmd.q5 <<std::endl;
@@ -86,8 +87,8 @@ std::vector<Point*> readFile(const char * nameFile);
 	
 #endif
 
-
-std::vector<Point*> readFile(const char * nameFile){
+/*
+std::vector<Point> readFile(const char * nameFile){
     
     std::ifstream input_file;
      
@@ -122,14 +123,51 @@ std::vector<Point*> readFile(const char * nameFile){
 		    }
 		}
 		
+		std::cout << "pt lu : x=" << stof(bufferX) << " y=" << stof(bufferY) << std::endl;
+		
 		points.push_back(new Point);
 		points.back()->x = stof(bufferX); // revesed (12_01_19)
 		points.back()->y = stof(bufferY);
 
 	}
+	std::cout << "nb pt=" << points.size() << std::endl;
 	
 	input_file.close();
 	
 	return points;
     
+}
+*/
+
+std::vector<Point> readPathFile(const char * nameFile)
+{
+	std::vector<Point> vpOutput;
+	
+	std::ifstream f(nameFile, std::ifstream::in);
+	
+	if(f)
+	{
+		std::string sBuffer;
+		
+		while(f >> sBuffer){
+			std::stringstream iss(sBuffer);
+					
+			Point p;
+			iss >> p.x;
+			iss.ignore(1,'\n');
+			iss >> p.y;
+			vpOutput.push_back(p);	
+		}
+	
+	}
+	else
+		std::cout << "Error : unable to open " << nameFile << std::endl;
+	
+	/* for debugging if necessary :
+	std::cout << "size="<<vpOutput.size()<<std::endl;
+	for (auto&& p: vpOutput)
+		std::cout << "x="<<p.x<<" y="<<p.y<<std::endl;
+	*/
+	return vpOutput;
+	
 }
