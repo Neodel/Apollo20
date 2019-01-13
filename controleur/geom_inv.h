@@ -47,7 +47,7 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
  *  \return Joint parameters of the system
  */
 
-Cmd geomInv(Point X);
+Cmd geomInv(Point const& X);
 
 
 

@@ -9,6 +9,9 @@
 
 #include <cmath>
 
+#ifndef PI
+#define PI 3.141597
+#endif
 
 /*!
  * \class Point [<Point.h>]
@@ -33,9 +36,17 @@ struct Point{
 	static float dot(Point x1, Point x2)
 	{
 		return (x1.x*x2.x + x1.y*x2.y);
-	}	
+	}
+	
+	void disp()
+	{
+		std::cout << "Point : x=" << this->x << " y=" << this->y << std::endl;
+	}
 	
 };
+
+
+
 
 /*!
  * \class Cmd [<Point.h>]
