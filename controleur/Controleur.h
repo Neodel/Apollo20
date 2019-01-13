@@ -17,7 +17,7 @@
 #define PI 3.14159265
 
 
-#define SEUIL 0.5
+#define SEUIL 0.05
 
 #define TEMPO 100000
 
@@ -28,7 +28,11 @@ class Controleur {
         
         void write(float m1, float m2);
         
+        void write(Cmd cmd);
+        
         void write(std::vector<Point*>);
+        
+        void set(Cmd cmd);
         
         void loop();
         
@@ -39,7 +43,7 @@ class Controleur {
 
     private:
     
-        float  _target1, _target2;
+        double  _target1, _target2;
         
         float  _ratio;
         

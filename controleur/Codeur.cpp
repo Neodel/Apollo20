@@ -32,7 +32,7 @@ Codeur::~Codeur(){
 
 
 void Codeur::set(long pos){
-    this->_ofset = this->_ofset + pos;
+    this->_ofset =  this->read() - pos ;
 }
 
 long Codeur::read(){

@@ -26,7 +26,7 @@ class Pid {
     
     public:
         Pid(float kp, float kd, float ki);
-        int correction(int error);
+        int correction(float error);
         
     
 };

@@ -8,21 +8,23 @@ Controleur::Controleur():
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
     
-    _pid1(6,0.2,0.0001), // 6
-    _pid2(6,0.2,0.0001),
+    _pid1(50,5,0), // 6 0.2 0.0001 // 50 0 0.1
+    _pid2(50,5,0),
     
-    _ratio( 2 * PI / (TIC_CODEUR * REDUCTION))
+    _ratio( 2.0 * PI / (TIC_CODEUR * 4 * REDUCTION)) // 4 for quadrature
 {
+    
+    std::cout << " ctr controler " << _ratio<< std::endl;
     this->_target1 = this->getPos1();
     this->_target2 = this->getPos2();
 }
 
 void Controleur::write(std::vector<Point*> points ){
     for (auto p : points) {
-	   this->write(p->x, p->y);
-	   while(! this->achieved())
-	        this->loop();
-	}
+       this->write(p->x, p->y);
+       while(! this->achieved())
+            this->loop();
+    }
 }
 
 
@@ -39,6 +41,12 @@ void Controleur::write(float m1, float m2){
     this->_target2 = m2;
 }
 
+void Controleur::write(Cmd cmd){
+    this->_target1 = cmd.q1;
+    this->_target2 = cmd.q5;
+}
+
+
 void Controleur::loop(){
     
     this->_order1 = this->_pid1.correction(this->_target1 - this->getPos1());
@@ -47,10 +55,9 @@ void Controleur::loop(){
     this->_driver1.write(this->_order1);
     this->_driver2.write(this->_order2);
     
-    #ifndef DEBUG_CONTROLEUR
+    #if true
         std::cout << "loop 1 , pos: " << this->getPos1() << " target: " ;
         std::cout << this->_target1 << " order: " << this->_order1 ;
-        std::cout << " achieved: " << this->achieved() ;
         
         std::cout << "    loop 2 , pos: " << this->getPos2() << " target: " ;
         std::cout << this->_target2 << " order: " << this->_order2 ;
@@ -59,8 +66,12 @@ void Controleur::loop(){
 }
 
 bool Controleur::achieved(){
-    return  ( this->getPos1()-this->_target1  < SEUIL) && ( this->getPos2()-this->_target2 < SEUIL) &&  
-            (-this->getPos1()-this->_target1  < SEUIL) && (-this->getPos2()-this->_target2 > SEUIL);
+    return  ( (std::abs(this->getPos1()-this->_target1)  < SEUIL) && ( std::abs(this->getPos2()-this->_target2) < SEUIL) );
+}
+
+void Controleur::set(Cmd cmd){
+    this->_codeur1.set(cmd.q1/this->_ratio);
+    this->_codeur2.set(cmd.q5/this->_ratio);
 }
 
 

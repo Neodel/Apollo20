@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 #include "Point.h"
+#include "geom_inv.h"
 
 #include <cmath>
 
@@ -24,16 +25,49 @@ std::vector<Point*> readFile(const char * nameFile);
 	    
 	   
 		std::vector<Point*> points = readFile("data.txt");
+
+		Point org;
+		org.x = 0.012;
+		org.y = 0.082;
+		
+		Cmd cmd;
+		// note use model infv of (12,82) (mm)
+		cmd.q1 = 2.66917;
+		cmd.q5 = 0.478780;
 	    
 	    
 	    // modele inverse points -> points
 	    
 	    Controleur controleur;
 	    
+	    //controleur.set(geomInv(org));
+	    controleur.set(cmd);
+	    
+	    std::cout << "init : " << controleur.getPos1() << " "<< controleur.getPos2() << std::endl;
+	    
+	    
 	    //controleur.write(points);
 
 
 	    for (auto p : points) { // segfault at the end ...
+	    
+		   cmd = geomInv(*p);
+		   controleur.write(cmd);
+		   bool ok;
+		   std::cout<< cmd.q1 << " | " << cmd.q5 <<std::endl;
+		   do{
+		   		controleur.loop();
+		   		usleep(100000);
+		   		ok = controleur.achieved();
+		   		std::cout<< cmd.q1 << " | " << cmd.q5;
+		   		std::cout << " achieved: " << ok << std::endl;
+		   }while(!ok);
+		        
+		}
+		
+		
+		/*
+		for (auto p : points) { // segfault at the end ...
 		   controleur.write(p->x, p->y);
 		   std::cout<< p->x << " | " << p->y <<std::endl;
 		   do{
@@ -42,6 +76,8 @@ std::vector<Point*> readFile(const char * nameFile);
 		   }while(!controleur.achieved());
 		        
 		}
+		*/
+		
 		
 	
 	    
@@ -87,7 +123,7 @@ std::vector<Point*> readFile(const char * nameFile){
 		}
 		
 		points.push_back(new Point);
-		points.back()->x = stof(bufferX);
+		points.back()->x = stof(bufferX); // revesed (12_01_19)
 		points.back()->y = stof(bufferY);
 
 	}
