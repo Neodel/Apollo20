@@ -21,12 +21,19 @@ using namespace std;
 
 
 std::vector<Point> readPathFile(const char * nameFile);
+std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
+
 
 #if (! defined(DEBUG_CONTROLEUR)) && (! defined(DEBUG_CODEUR))
 
 	int main(void){
 	   
 		std::vector<Point> points = readPathFile("data.txt");
+		
+		std::vector<Point> interpolPoints = interpolationTrajectory(points);
+		//for (auto p : interpolPoints)
+			//std::cout << p.x << "," << p.y << std::endl;
+		
 
 		Point org(0.012,0.082);
 		Point p_target, p_actu;
@@ -107,4 +114,47 @@ std::vector<Point> readPathFile(const char * nameFile)
 	*/
 	return vpOutput;
 
+}
+
+
+
+std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints)
+{
+	std::vector<Point> vPointsInterpol;
+	
+	// ajout du premier point
+	if (vPoints.size() > 0)
+			vPointsInterpol.push_back(vPoints[0]);
+	else 
+	{	
+		std::cout << "(WARNING) Empty list of points" << std::endl;
+		return vPointsInterpol;
+	}
+	
+	// pour chaque point de la carte
+	for(size_t iPt(1) ; iPt < vPoints.size() ; ++iPt) // entre n et n-1 : début = 1
+	{
+		double xlast = vPoints[iPt-1].x;
+		double ylast = vPoints[iPt-1].y;
+		double xcurr = vPoints[iPt].x;
+		double ycurr = vPoints[iPt].y;
+	
+
+		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 100) + 1; 
+		double increment_x = (xcurr-xlast)/nb_point;
+		double increment_y = (ycurr-ylast)/nb_point;
+
+		for(int i=0; i< nb_point; i++) 
+		{
+			Point add;
+			add.x = vPointsInterpol.back().x + increment_x;
+			add.y = vPointsInterpol.back().y + increment_y;
+			vPointsInterpol.push_back(add);
+		}
+	
+		vPointsInterpol.push_back(vPoints[iPt]);
+	}
+	
+	
+	return vPointsInterpol;
 }
