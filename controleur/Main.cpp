@@ -13,13 +13,15 @@
 #include "geom_inv.h"
 #include "geom_direct.h"
 
+#define THRESHOLD  0.001
+
 
 #include <cmath>
 
 using namespace std;
 
 
-
+bool achieved(Point p, float q1, float q5);
 std::vector<Point> readPathFile(const char * nameFile);
 std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 
@@ -30,7 +32,7 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 	   
 		std::vector<Point> points = readPathFile("data.txt");
 		
-		std::vector<Point> interpolPoints = interpolationTrajectory(points);
+		points = interpolationTrajectory(points);
 		//for (auto p : interpolPoints)
 			//std::cout << p.x << "," << p.y << std::endl;
 		
@@ -60,9 +62,12 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 
 	    for (auto p : points) { 
 		   cmd = geomInv(p);
+		   
 		   p_target = geomDirect(cmd);
 		   controleur.write(cmd);
 		   p_target = geomDirect(cmd);
+		   
+		   std::cout<< p.x <<" "<<p.y<<std::endl;
 		   bool ok;
 		   std::cout<<"cmd: " << cmd.q1 << " | " << cmd.q5 <<std::endl;
 		   do{
@@ -70,17 +75,31 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 		   		actu.q5 = controleur.getPos2();
 		   		p_actu = geomDirect(actu);
 		   		controleur.loop();
-		   		usleep(100000);
-		   		ok = controleur.achieved();
+		   		usleep(10000);
+		   		// ok = controleur.achieved(); // depreciated
+		   		ok = achieved(p,controleur.getPos1(),controleur.getPos2());
 		   		//std::cout<< cmd.q1 << " | " << cmd.q5 << " | "<< p_target.x <<" "<< p_target.y << " | "<< p_actu.x <<" "<< p_actu.y;
 		   		//std::cout << " | achieved: " << ok << std::endl;
 		   		//std::cout<< p_target.x *1000<<" "<< p_target.y*1000 << " | "<< p_actu.x *1000<<" "<< p_actu.y*1000 <<" er = "<<(p_target.x-p_actu.x)*1000 << " "<< (p_target.y-p_actu.y)*1000 << std::endl;
-		   		std::cout<<"actu: q1: "<< actu.q1 << " q5: " <<  actu.q5 << std::endl;
+		   		//std::cout<<"actu: q1: "<< actu.q1 << " q5: " <<  actu.q5 << std::endl;
 		   }while(!ok);      
 		}	    
 	}
 	
 #endif
+
+bool achieved(Point p, float q1, float q5){
+	Cmd cmd;
+	cmd.q1 = q1;
+	cmd.q5 = q5;
+	
+	Point p_actu = geomDirect(cmd);
+	
+	//std::cout<< p.x << " " << p.y << " | "<< p_actu.x <<" "<< p_actu.y<<std::endl;
+	
+	return (Point::norm(p,p_actu)<THRESHOLD);
+	
+}
 
 
 std::vector<Point> readPathFile(const char * nameFile)
@@ -140,7 +159,7 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints)
 		double ycurr = vPoints[iPt].y;
 	
 
-		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 100) + 1; 
+		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 1000); 
 		double increment_x = (xcurr-xlast)/nb_point;
 		double increment_y = (ycurr-ylast)/nb_point;
 

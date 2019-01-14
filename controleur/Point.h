@@ -33,6 +33,11 @@ struct Point{
 		return sqrt(this->x*this->x + this->y*this->y);
 	}
 	
+	static float norm(Point const& p1, Point const& p2)
+	{
+		return sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y));
+	}
+	
 	static float dot(Point const& x1, Point const& x2)
 	{
 		return (x1.x*x2.x + x1.y*x2.y);
