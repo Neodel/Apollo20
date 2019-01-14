@@ -61,19 +61,19 @@ long Encoder::read(){
 #ifdef DEBUG_ENCODER
 
     int main(void){
-        Encoder codeur1("/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep/");
-        Encoder codeur2("/sys/devices/platform/ocp/48300000.epwmss/48300180.eqep/");
-        long pos = codeur1.read();
-        std::cout<< "\t codeur : " <<  pos << std::endl;
-        pos = codeur2.read();
-        std::cout<< "\t codeur : " <<  pos  << std::endl;
+        Encoder encoder1("/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep/");
+        Encoder encoder2("/sys/devices/platform/ocp/48300000.epwmss/48300180.eqep/");
+        long pos = encoder1.read();
+        std::cout<< "\t encoder : " <<  pos << std::endl;
+        pos = encoder2.read();
+        std::cout<< "\t encoder : " <<  pos  << std::endl;
         
         
         for (int i = 0 ; i< 10 ; i++) {
              usleep(1000000);
-             codeur1.read();
+             encoder1.read();
              std::cout<< "\t";
-             codeur2.read();
+             encoder2.read();
         }
     
     }

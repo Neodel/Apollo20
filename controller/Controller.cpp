@@ -1,13 +1,8 @@
 #include "Controller.h"
 
-Controller::~Controller(){
-    _driver1.~Driver();
-    _driver2.~Driver();
-}
-
 Controller::Controller():
-    _codeur1 ("/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep/"),
-    _codeur2 ("/sys/devices/platform/ocp/48300000.epwmss/48300180.eqep/"),
+    _encoder1 ("/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep/"),
+    _encoder2 ("/sys/devices/platform/ocp/48300000.epwmss/48300180.eqep/"),
     
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
@@ -15,12 +10,17 @@ Controller::Controller():
     _pid1(800,20,0.01), // 6 0.2 0.0001 // 50 0 0.1
     _pid2(800,20,0.01),
     
-    _ratio( 2.0 * PI / (TIC_CODEUR * 4 * REDUCTION)) // 4 for quadrature
+    _ratio( 2.0 * PI / (TIC_ENCODER * 4 * REDUCTION)) // 4 for quadrature
 {
     
-    std::cout << " ctr controler " << _ratio<< std::endl;
+    std::cout << " ctr controller " << _ratio<< std::endl;
     this->_target1 = this->getPos1();
     this->_target2 = this->getPos2();
+}
+
+Controller::~Controller(){
+    _driver1.~Driver();
+    _driver2.~Driver();
 }
 
 void Controller::write(std::vector<Point*> points ){
@@ -33,16 +33,20 @@ void Controller::write(std::vector<Point*> points ){
 
 
 float Controller::getPos1(){
-    return this->_codeur1.read() * this->_ratio;
+    return this->_encoder1.read() * this->_ratio;
 }
 
 float Controller::getPos2(){
-    return this->_codeur2.read() * this->_ratio;
+    return this->_encoder2.read() * this->_ratio;
 }
 
 void Controller::write(float m1, float m2){
     this->_target1 = m1;
     this->_target2 = m2;
+}
+void Controller::write(Cmd const& cmd){
+    this->_target1 = cmd.q1;
+    this->_target2 = cmd.q5;
 }
 
 void Controller::loop(){
@@ -65,25 +69,28 @@ void Controller::loop(){
 }
 
 bool Controller::achieved(){
-    return  ( (std::abs(this->getPos1()-this->_target1)  < SEUIL) && ( std::abs(this->getPos2()-this->_target2) < THRESHOLD) );
+    return  ( (std::abs(this->getPos1()-this->_target1)  < THRESHOLD_C) && ( std::abs(this->getPos2()-this->_target2) < THRESHOLD_C) );
 }
-
+void Controller::set(Cmd const& cmd){
+    this->_encoder1.set(cmd.q1/this->_ratio);
+    this->_encoder2.set(cmd.q5/this->_ratio);
+}
 
 #ifdef DEBUG_CONTROLLER
 
     int main(void){
-        Controleur controleur;
+        Controller controller;
         
-        std::cout<< "pos 1 "<< controleur.getPos1()  << " pos 2 " << controleur.getPos2() << std::endl;
+        std::cout<< "pos 1 "<< controller.getPos1()  << " pos 2 " << controller.getPos2() << std::endl;
         
         int tempo = 100000;
         int iter = 100;
 
         
-        controleur.write(100,100);
+        controller.write(100,100);
         
         for(int i=0; i<iter ; i++){
-            controleur.loop();
+            controller.loop();
             usleep(tempo);
         }
         
