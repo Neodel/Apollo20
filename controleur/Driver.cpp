@@ -54,6 +54,9 @@ Driver::Driver(std::string pwmPath, std::string gpioPath){
 }
 
 Driver::~Driver(){
+    
+    std::cout<<"driver end "<<std::endl;
+    
     #ifndef DEBUG_DRIVER
         this->_gpio << 0 << std::endl;
     #endif

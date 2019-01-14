@@ -13,7 +13,7 @@
 #define LT 0.01
 
 
-#define DEBUG_GEOM_DIR
+//#define DEBUG_GEOM_DIR
 
 
 Point geomDirect(Cmd const& cmd);

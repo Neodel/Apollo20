@@ -14,7 +14,7 @@
 #define TIC_CODEUR 360
 #define REDUCTION 1.9
 
-#define PI 3.14159265
+//#define PI 3.14159265
 
 
 #define SEUIL 0.05
@@ -26,11 +26,11 @@ class Controleur {
     public:
         Controleur();
         
-        void write(float const& m1, float const& m2);
+        void write(float m1, float m2);
         
-        void write(Cmd const& cmd);
+        void write(Cmd cmd);
         
-        void write(std::vector<Point> const& points);
+        void write(std::vector<Point*>);
         
         void set(Cmd cmd);
         

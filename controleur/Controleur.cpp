@@ -19,9 +19,9 @@ Controleur::Controleur():
     this->_target2 = this->getPos2();
 }
 
-void Controleur::write(std::vector<Point> const& points ){
+void Controleur::write(std::vector<Point*> points ){
     for (auto p : points) {
-       this->write(p.x, p.y);
+       this->write(p->x, p->y);
        while(! this->achieved())
             this->loop();
     }
@@ -36,12 +36,12 @@ float Controleur::getPos2(){
     return this->_codeur2.read() * this->_ratio;
 }
 
-void Controleur::write(float const& m1, float const& m2){
+void Controleur::write(float m1, float m2){
     this->_target1 = m1;
     this->_target2 = m2;
 }
 
-void Controleur::write(Cmd const& cmd){
+void Controleur::write(Cmd cmd){
     this->_target1 = cmd.q1;
     this->_target2 = cmd.q5;
 }

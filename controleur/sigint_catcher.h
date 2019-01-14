@@ -2,14 +2,16 @@
 #define SIGINT_CATCHER_HPP
 
 
+#include <iostream>
 #include <signal.h>
 #include <cstdlib>
 #include <stdio.h>
+#include "Controleur.h"
 
 
-#define DEBUG_SIGINTCATCHER
+//#define DEBUG_SIGINTCATCHER
 
-struct sigaction sigIntHandler;
+//struct sigaction sigIntHandler;
 
 
 

@@ -1,4 +1,4 @@
-#include "sigint_catcher.hpp"
+#include "sigint_catcher.h"
 
 
 SigIntCatcher::SigIntCatcher()
@@ -13,7 +13,7 @@ SigIntCatcher::SigIntCatcher()
 
 void SigIntCatcher::callBackInterrupt(int s)
 {
-	printf("Caught signal %d\n",s);
+	std::cout<< "Caught signal " << s<< std::endl;
 	
 	/* PROGRAMMER LE HANDLER DU CTRL+C ICI */
 	

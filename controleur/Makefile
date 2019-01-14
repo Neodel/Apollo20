@@ -5,7 +5,7 @@ DEPS = Codeur.h Controleur.h Driver.h Pid.h
 
 TARGET = Main
 
-OBJ = Codeur.o Controleur.o Driver.o Pid.o Main.o geom_inv.o
+OBJ = Codeur.o Controleur.o Driver.o Pid.o Main.o geom_inv.o sigint_catcher.o geom_direct.o
 
 
 all : $(TARGET)
