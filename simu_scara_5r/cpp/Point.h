@@ -53,8 +53,11 @@ struct Cmd{
 	{}
 };
 
-// Solution side
-enum SolSide {RIGHT_SOL, LEFT_SOL};
+/*! Solution side */
+enum SolSide {
+	RIGHT_SOL, /*!< This is Right solution */
+	LEFT_SOL   /*!< This is Left solution */
+};
 
 
 #endif
