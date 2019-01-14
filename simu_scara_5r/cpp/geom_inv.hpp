@@ -26,12 +26,12 @@
  *
  *  Method that permits to find the intersection of two circles, and choose one of it if solutions exist
  *
- *  \param p1 : center of the first circle
- *  \param r1 : radius of the first circle
- *	\param p2 : center of the second circle
- *  \param r2 : radius of the second circle
- *  \param side : choose one of the solution
- *  \return Needed intersection point
+ *  \param (Point) p1 : center of the first circle
+ *  \param (float) r1 : radius of the first circle
+ *	\param (Point) p2 : center of the second circle
+ *  \param (float) r2 : radius of the second circle
+ *  \param (SolSide) side : choose one of the solution
+ *  \return (Point) Needed intersection point
  */
 
 Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
@@ -41,8 +41,8 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
  *
  *  Method that permits the calculation of inverse geometric model
  *
- *  \param Reached point by articular parameters
- *  \return Joint parameters of the system
+ *  \param (Point) Reached point by articular parameters
+ *  \return (Cmd) Joint parameters of the system
  */
 
 Cmd geomInv(Point X);
