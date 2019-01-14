@@ -26,6 +26,8 @@ class Controleur {
     public:
         Controleur();
         
+        ~Controleur();
+        
         void write(float m1, float m2);
         
         void write(Cmd cmd);

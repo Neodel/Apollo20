@@ -1,8 +1,9 @@
 #include "sigint_catcher.h"
 
 
-SigIntCatcher::SigIntCatcher()
+SigIntCatcher::SigIntCatcher(Controleur *controleur)
 {
+	_controleur = controleur;
 	_handler.sa_handler = callBackInterrupt;
 	sigemptyset(&_handler.sa_mask);
 	_handler.sa_flags = 0;
@@ -16,6 +17,8 @@ void SigIntCatcher::callBackInterrupt(int s)
 	std::cout<< "Caught signal " << s<< std::endl;
 	
 	/* PROGRAMMER LE HANDLER DU CTRL+C ICI */
+	
+	//p->~Controleur();
 	
 	exit(1); 
 }

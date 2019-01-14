@@ -25,7 +25,7 @@ std::vector<Point*> readFile(const char * nameFile);
 
 	int main(void){
 		
-		SigIntCatcher sigIntCatcher;
+		
 	   
 		std::vector<Point*> points = readFile("data.txt");
 
@@ -42,6 +42,7 @@ std::vector<Point*> readFile(const char * nameFile);
 	    // modele inverse points -> points
 	    
 	    Controleur controleur;
+	    SigIntCatcher sigIntCatcher( & controleur);
 	    
 	    //controleur.set(geomInv(org));
 	    controleur.set(cmd);

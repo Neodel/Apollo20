@@ -1,5 +1,9 @@
 #include "Controleur.h"
 
+Controleur::~Controleur(){
+    _driver1.~Driver();
+    _driver2.~Driver();
+}
 
 Controleur::Controleur():
     _codeur1 ("/sys/devices/platform/ocp/48304000.epwmss/48304180.eqep/"),

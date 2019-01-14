@@ -27,10 +27,11 @@ class SigIntCatcher
 {
 	private:
 		struct sigaction _handler;
+		Controleur * _controleur;
 	
 	
 	public:
-		SigIntCatcher();
+		SigIntCatcher(Controleur *controleur);
 		
 		static void callBackInterrupt(int s);
 
