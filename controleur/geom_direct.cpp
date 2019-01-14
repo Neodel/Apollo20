@@ -24,7 +24,7 @@ Point geomDirect(Cmd const& cmd)
 	// Xterm computation
 	float qterm = PI/4;
 
-	Point Xterm(X3.x + LT*std::cos(qterm), X3.y + LT*std::sin(qterm));
+	Point Xterm(X3.x + LT*std::cos(q2-qterm), X3.y + LT*std::sin(q2-qterm));
 
 	return Xterm; 
 }

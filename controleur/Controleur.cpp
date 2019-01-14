@@ -12,8 +12,8 @@ Controleur::Controleur():
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
     
-    _pid1(50,5,0), // 6 0.2 0.0001 // 50 0 0.1
-    _pid2(50,5,0),
+    _pid1(60,5,0.01), // 6 0.2 0.0001 // 50 0 0.1
+    _pid2(60,5,0.01),
     
     _ratio( 2.0 * PI / (TIC_CODEUR * 4 * REDUCTION)) // 4 for quadrature
 {
@@ -23,6 +23,8 @@ Controleur::Controleur():
     this->_target2 = this->getPos2();
 }
 
+
+//////////////////////////////////////////////////////////////////// depreciated
 void Controleur::write(std::vector<Point*> points ){
     for (auto p : points) {
        this->write(p->x, p->y);
@@ -30,7 +32,7 @@ void Controleur::write(std::vector<Point*> points ){
             this->loop();
     }
 }
-
+/////////////////////////////////////////////////////////////////////
 
 float Controleur::getPos1(){
     return this->_codeur1.read() * this->_ratio;
@@ -59,7 +61,7 @@ void Controleur::loop(){
     this->_driver1.write(this->_order1);
     this->_driver2.write(this->_order2);
     
-    #if true
+    #if false
         std::cout << "loop 1 , pos: " << this->getPos1() << " target: " ;
         std::cout << this->_target1 << " order: " << this->_order1 ;
         

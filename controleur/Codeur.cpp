@@ -32,7 +32,7 @@ Codeur::~Codeur(){
 
 
 void Codeur::set(long pos){
-    this->_ofset =  this->read() - pos ;
+    this->_ofset =  pos - this->read()  ;
 }
 
 long Codeur::read(){
@@ -48,7 +48,7 @@ long Codeur::read(){
     
     this->_pos = atol(this->_posStr);
     
-    this->_pos -= this->_ofset;
+    this->_pos += this->_ofset;
     
     #ifdef DEBUG_CODEUR
         std::cout<< "codeur : " <<  this->_posStr << " : "<< this->_pos << std::endl;
