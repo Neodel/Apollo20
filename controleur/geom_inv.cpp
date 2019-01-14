@@ -47,7 +47,7 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side)
 	}
 } 
 
-Cmd geomInv(Point const& X)
+Cmd geomInv(Point X)
 {
 	Point O1(0,0);
 	Point O5(D,0);
@@ -66,7 +66,7 @@ Cmd geomInv(Point const& X)
 int main()
 {
 	Cmd cmd = geomInv(Point(0.1,0.1));
-   std::cout << "q1 = " << cmd.q1 << ",q2 = " << cmd.q5 << '\n';
-   return 1;
+    std::cout << "q1 = " << cmd.q1 << ",q2 = " << cmd.q5 << '\n';
+    return 1;
 }
 #endif

@@ -1,8 +1,6 @@
 #ifndef GEOM_INVERSE_HPP
 #define GEOM_INVERSE_HPP
 
-//#define DEBUG_GEOM_INV
-
 /*!
  * \file geom_inv.hpp
  * \brief Inverse geometric model's resolution
@@ -47,7 +45,7 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
  *  \return Joint parameters of the system
  */
 
-Cmd geomInv(Point const& X);
+Cmd geomInv(Point X);
 
 
 
