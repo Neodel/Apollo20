@@ -18,6 +18,7 @@
 
 using namespace std;
 
+#define SAMPLING_RATIO 1000
 
 
 std::vector<Point> readPathFile(const char * nameFile);
@@ -31,8 +32,8 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 		std::vector<Point> points = readPathFile("data.txt");
 		
 		std::vector<Point> interpolPoints = interpolationTrajectory(points);
-		//for (auto p : interpolPoints)
-			//std::cout << p.x << "," << p.y << std::endl;
+		for (auto p : interpolPoints)
+			std::cout << p.x << "," << p.y << std::endl;
 		
 
 		Point org(0.012,0.082);
@@ -120,13 +121,15 @@ std::vector<Point> readPathFile(const char * nameFile)
 
 std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints)
 {
+	
+
 	std::vector<Point> vPointsInterpol;
 	
 	// ajout du premier point
 	if (vPoints.size() > 0)
 			vPointsInterpol.push_back(vPoints[0]);
 	else 
-	{	
+	{
 		std::cout << "(WARNING) Empty list of points" << std::endl;
 		return vPointsInterpol;
 	}
@@ -140,7 +143,7 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints)
 		double ycurr = vPoints[iPt].y;
 	
 
-		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 100) + 1; 
+		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * SAMPLING_RATIO); 
 		double increment_x = (xcurr-xlast)/nb_point;
 		double increment_y = (ycurr-ylast)/nb_point;
 
