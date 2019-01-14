@@ -34,7 +34,7 @@
  *  \return Needed intersection point
  */
 
-Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
+Point interCerle(Point const& p1, float const& r1, Point const& p2, float const& r2, SolSide const& side);
 
 /*!
  *  \brief Inverse geometric model
@@ -45,7 +45,7 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side);
  *  \return Joint parameters of the system
  */
 
-Cmd geomInv(Point X);
+Cmd geomInv(Point const& X);
 
 
 

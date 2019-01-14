@@ -22,7 +22,7 @@ struct Point{
 	float x;
 	float y;
 	
-	Point(float X, float Y) : x(X), y(Y)
+	Point(float const& X, float const& Y) : x(X), y(Y)
 	{}
 	
 	Point() : x(-1), y(-1)
@@ -33,7 +33,7 @@ struct Point{
 		return sqrt(this->x*this->x + this->y*this->y);
 	}
 	
-	static float dot(Point x1, Point x2)
+	static float dot(Point const& x1, Point const& x2)
 	{
 		return (x1.x*x2.x + x1.y*x2.y);
 	}
@@ -57,7 +57,7 @@ struct Cmd{
 	float q1;
 	float q5;
 	
-	Cmd(float Q1, float Q5) : q1(Q1), q5(Q5)
+	Cmd(float const& Q1, float const& Q5) : q1(Q1), q5(Q5)
 	{}
 	
 	Cmd() : q1(-1), q5(-1)

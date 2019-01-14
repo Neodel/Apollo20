@@ -42,12 +42,12 @@ float Controleur::getPos2(){
     return this->_codeur2.read() * this->_ratio;
 }
 
-void Controleur::write(float m1, float m2){
+void Controleur::write(float const& m1, float const& m2){
     this->_target1 = m1;
     this->_target2 = m2;
 }
 
-void Controleur::write(Cmd cmd){
+void Controleur::write(Cmd const& cmd){
     this->_target1 = cmd.q1;
     this->_target2 = cmd.q5;
 }
@@ -75,7 +75,7 @@ bool Controleur::achieved(){
     return  ( (std::abs(this->getPos1()-this->_target1)  < SEUIL) && ( std::abs(this->getPos2()-this->_target2) < SEUIL) );
 }
 
-void Controleur::set(Cmd cmd){
+void Controleur::set(Cmd const& cmd){
     this->_codeur1.set(cmd.q1/this->_ratio);
     this->_codeur2.set(cmd.q5/this->_ratio);
 }

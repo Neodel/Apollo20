@@ -9,7 +9,7 @@ using namespace std;
 
 
 
-Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side)
+Point interCerle(Point const& p1, float const& r1, Point const& p2, float const& r2, SolSide const& side)
 {
 	float distPts = sqrt( (p1.x -p2.x)*(p1.x -p2.x) + (p1.y - p2.y)*(p1.y -p2.y) );
 	
@@ -47,13 +47,8 @@ Point interCerle(Point p1, float r1, Point p2, float r2, SolSide side)
 	}
 } 
 
-Cmd geomInv(Point X)
+Cmd geomInv(Point const& X)
 {
-	/*
-	float temp = X.x;
-	X.x = X.y;
-	X.y = temp;
-	*/
 	Point O1(0,0);
 	Point O5(D,0);
 
