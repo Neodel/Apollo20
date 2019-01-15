@@ -12,8 +12,9 @@
 #include "Point.h"
 #include "geom_inv.h"
 #include "geom_direct.h"
+#include "ServerGUI.h"
 
-#define THRESHOLD  0.001
+#define THRESHOLD  0.005
 
 
 #include <cmath>
@@ -38,7 +39,7 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 			//std::cout << p.x << "," << p.y << std::endl;
 		
 
-		Point org(0.012,0.082);
+		Point org(0.0125,0.110);
 		Point p_target, p_actu;
 		
 		Cmd cmd, actu;
@@ -52,6 +53,10 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 	    
 	    Controller controller;
 	    
+	    ServerGUI serverGUI(&controller);
+	    serverGUI.init();
+	    serverGUI.readMsg();
+	    
 	    controller.set(geomInv(org));
 	    //controleur.set(cmd);
 	    
@@ -60,6 +65,9 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 	    //controleur.write(points);
 	    for (auto p : points) 
 			std::cout<<p.x<<" "<<p.y<<std::endl;
+			
+		int iter = 0 ;
+		float error = 0;
 
 	    for (auto p : points) { 
 		   cmd = geomInv(p);
@@ -72,19 +80,30 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 		   bool ok;
 		   std::cout<<"cmd: " << cmd.q1 << " | " << cmd.q5 <<std::endl;
 		   do{
-		   		actu.q1 = controller.getPos1();
+		 		actu.q1 = controller.getPos1();
 		   		actu.q5 = controller.getPos2();
 		   		p_actu = geomDirect(actu);
+		   		
 		   		controller.loop();
 		   		usleep(10000);
+		   	    serverGUI.sendArti();
+		   	    serverGUI.sendPos(p_actu);
 		   		// ok = controleur.achieved(); // depreciated
+		   		
 		   		ok = achieved(p,controller.getPos1(),controller.getPos2());
+		   		
 		   		//std::cout<< cmd.q1 << " | " << cmd.q5 << " | "<< p_target.x <<" "<< p_target.y << " | "<< p_actu.x <<" "<< p_actu.y;
 		   		//std::cout << " | achieved: " << ok << std::endl;
 		   		//std::cout<< p_target.x *1000<<" "<< p_target.y*1000 << " | "<< p_actu.x *1000<<" "<< p_actu.y*1000 <<" er = "<<(p_target.x-p_actu.x)*1000 << " "<< (p_target.y-p_actu.y)*1000 << std::endl;
 		   		//std::cout<<"actu: q1: "<< actu.q1 << " q5: " <<  actu.q5 << std::endl;
-		   }while(!ok);      
-		}	    
+		   		
+		   		iter ++;
+		   		error += Point::norm(p_target,p_actu);
+		   }while(!ok);  
+		   
+		}
+		
+		std::cout<< "final error " << error/iter<< std::endl;
 	}
 	
 #endif
@@ -161,7 +180,7 @@ std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints)
 		double xcurr = vPoints[iPt].x;
 		double ycurr = vPoints[iPt].y;
 	
-		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 1000); 
+		int nb_point = int(sqrt( (xcurr-xlast)*(xcurr-xlast) +  (ycurr-ylast)*(ycurr-ylast) ) * 500); 
 
 		double increment_x = (xcurr-xlast)/nb_point;
 		double increment_y = (ycurr-ylast)/nb_point;

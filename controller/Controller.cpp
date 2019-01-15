@@ -7,8 +7,8 @@ Controller::Controller():
     _driver1("/sys/class/pwm/pwmchip3/pwm1/","/sys/class/gpio/gpio48/"),
     _driver2("/sys/class/pwm/pwmchip3/pwm0/","/sys/class/gpio/gpio31/"),
     
-    _pid1(800,20,0.01), // 6 0.2 0.0001 // 50 0 0.1
-    _pid2(800,20,0.01),
+    _pid1(2200,100,0.5), // 6000 0 6 e = 0.003  6000,0,0.5 = 0.0017
+    _pid2(2200,100,0.5),
     
     _ratio( 2.0 * PI / (TIC_ENCODER * 4 * REDUCTION)) // 4 for quadrature
 {
@@ -19,11 +19,9 @@ Controller::Controller():
 }
 
 Controller::~Controller(){
-    _driver1.~Driver();
-    _driver2.~Driver();
 }
 
-void Controller::write(std::vector<Point*> points ){//Depreciated
+void Controller::write(std::vector<Point*> points ){
     for (auto p : points) {
        this->write(p->x, p->y);
        while(! this->achieved())
@@ -40,7 +38,7 @@ float Controller::getPos2(){
     return this->_encoder2.read() * this->_ratio;
 }
 
-void Controller::write(float m1, float m2){ //depreciated
+void Controller::write(float m1, float m2){
     this->_target1 = m1;
     this->_target2 = m2;
 }

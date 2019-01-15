@@ -20,68 +20,61 @@
  */
 struct Point{
 	/**
-	 * (float) x coordinate of the point
+	 * { item_description }
 	 */
 	float x;
-
 	/**
-	 * (float) y coordinate of the point
+	 * { item_description }
 	 */
 	float y;
-
 	/**
-	 * @brief      Setter of the point structure.
+	 * @brief      { function_description }
 	 *
-	 * @param      X     Coordinate of the point.
-	 * @param      Y     Coordinate of the point.
+	 * @param      X     { parameter_description }
+	 * @param      Y     { parameter_description }
 	 */
 	Point(float const& X, float const& Y) : x(X), y(Y)
 	{}
-
 	/**
-	 * Default setter of the point structure.
+	 * { item_description }
 	 */
 	Point() : x(-1), y(-1)
 	{}
-
 	/**
-	 * @brief      This function calculates the distance between the point and the origin frame.
+	 * @brief      { function_description }
 	 *
-	 * @return     (Float) The euclidian distance between the point and the origin frame.
+	 * @return     { description_of_the_return_value }
 	 */
 	float norm()
 	{
 		return sqrt(this->x*this->x + this->y*this->y);
 	}
-
 	/**
-	 * @brief      This function calculates the distance between p1 and p2.
+	 * @brief      { function_description }
 	 *
-	 * @param      p1    The point p1
-	 * @param      p2    The point p2
+	 * @param      p1    The p 1
+	 * @param      p2    The p 2
 	 *
-	 * @return     (Float) the euclidian distance between p1 and p2.
+	 * @return     { description_of_the_return_value }
 	 */
 	static float norm(Point const& p1, Point const& p2)
 	{
 		return sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y));
 	}
-
 	/**
-	 * @brief      Calculate the dot product between p1 and p2.
+	 * @brief      { function_description }
 	 *
-	 * @param      x1    The  point x1
-	 * @param      x2    The  point x2
+	 * @param      x1    The x 1
+	 * @param      x2    The x 2
 	 *
-	 * @return     (Float) the  value of the dot product.
+	 * @return     { description_of_the_return_value }
 	 */
 	static float dot(Point const& x1, Point const& x2)
 	{
 		return (x1.x*x2.x + x1.y*x2.y);
 	}
-
 	/**
-	 * @brief      This function displays the coordinates of the point. 
+	 * @brief      { function_description }
 	 */
 	void disp()
 	{
@@ -95,39 +88,21 @@ struct Point{
 
 /*!
  * \class Cmd [<Point.h>]
- * \brief Definition of an joint command for the system
+ * \brief Definition of an angular command for the system
  * \version 1
  */
 struct Cmd{
-	/**
-	 * The joint command for the motor1.
-	 */
 	float q1;
-
-	/**
-	 * The joint command for the motor2.
-	 */
 	float q5;
 	
-	/**
-	 * @brief     Constructor of the cmd structure.
-	 *
-	 * @param      Q1    The quarter 1
-	 * @param      Q5    The quarter 5
-	 */
 	Cmd(float const& Q1, float const& Q5) : q1(Q1), q5(Q5)
 	{}
 	
-	/**
-	 * Default setter of the cmd structure.
-	 */
 	Cmd() : q1(-1), q5(-1)
 	{}
 };
 
-/**
- * Choose for the side solution found using geom_inv.
- */
+// Solution side
 enum SolSide {RIGHT_SOL, LEFT_SOL};
 
 

@@ -18,15 +18,15 @@ int Pid::correction(float error){
 this->_sum_error += error;
    
    
-#if true // homemade anti windup 1
-    if (this->_sum_error >100)
-        this->_sum_error = 100;
+#if false // homemade anti windup 1
+    if (this->_sum_error >0.5)
+        this->_sum_error = 0.5;
         
-    if (this->_sum_error <-100)
-        this->_sum_error = -100;
+    if (this->_sum_error <-0.5)
+        this->_sum_error = -0.5;
 #endif
 
-#if false // homemade anti windup 2
+#if true // homemade anti windup 2
     if((_previous_error <0 && error >0)||(_previous_error >0 && error <0))
         _sum_error = 0;
 

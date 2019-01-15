@@ -30,9 +30,10 @@ class ReadThread(QThread):
 
     def run(self):
     	while(1):
+    	    sleep(0.01)
     	    pos=self.socket.recv(255)
     	    if(len(pos)!=0):
-    	        print("recv : " + pos)
+    	        #print("recv : " + pos)
                 self.sig.emit(pos)
 
     def send(self, msg):
@@ -46,9 +47,20 @@ class Client(QMainWindow,):
 
 
     def showPos(self,pos):
-    	print("sig recieved " + pos)
-        self.x_actu.setText(pos.split(',')[0])
-        self.y_actu.setText(pos.split(',')[1])
+    	#print("sig recieved " + pos)
+    	if (pos[0] == 'a'):
+    	    pos = pos.split(':')[1]
+    	    pos = pos.split('p')[0]
+    	    pos = pos.split('a')[0]
+            self.q1.setText(pos.split(',')[0])
+            self.q5.setText(pos.split(',')[1])
+        if (pos[0] == 'p'):
+            pos = pos.split(':')[1]
+    	    pos = pos.split('p')[0]
+    	    pos = pos.split('a')[0]
+            self.x_actu.setText(pos.split(',')[0])
+            self.y_actu.setText(pos.split(',')[1])
+
 
     def init(self):
         #window
@@ -62,6 +74,10 @@ class Client(QMainWindow,):
         self.send_bt=QPushButton("send", self)
         self.send_bt.clicked.connect(self.send_pushed)
         self.send_bt.move(0,30)
+
+        self.run_bt=QPushButton("run file", self)
+        self.run_bt.clicked.connect(self.run_pushed)
+        self.run_bt.move(0,240)
 
         self.x = QTextEdit(self)
         self.x.setPlaceholderText("x")
@@ -79,6 +95,14 @@ class Client(QMainWindow,):
         self.y_actu.setOverwriteMode(True)
         self.y_actu.move(0,150)
 
+        self.q1 = QTextEdit(self)
+        self.q1.setOverwriteMode(True)
+        self.q1.move(0,180)
+
+        self.q5=QTextEdit (self )
+        self.q5.setOverwriteMode(True)
+        self.q5.move(0,210)
+
         self.readThread = ReadThread()
         self.readThread.sig.connect( self.showPos )
         self.readThread.start()
@@ -92,8 +116,9 @@ class Client(QMainWindow,):
 
     	self.readThread.send(msg)
 
-    def launch(self):
-    	pass
+    def run_pushed(self):
+    	print("send: r") 
+    	self.readThread.send("r")
 
     def init_pushed(self):
     	print("send: i") 
