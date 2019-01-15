@@ -23,8 +23,8 @@ public:
     /**
      * @brief      Constructor of the driver
      *
-     * @param[in]  pwmPath   The pwm path
-     * @param[in]  gpioPath  The gpio path
+     * @param[in]  pwmPath   The pwm path needed
+     * @param[in]  gpioPath  The gpio path needed
      */
     Driver(std::string pwmPath, std::string gpioPath);
     /**
@@ -41,31 +41,30 @@ public:
     // TODO destructeur
     
 private:
-    /**
-     * { item_description }
-     */
+	/**
+	 * @brief The defined pwm path
+	 */
     std::string _pwmPath;
-    /**
-     * { item_description }
-     */
+	/**
+	 * @brief The defined gpio path
+	 */
     std::string _gpioPath;
-    /**
-     * { item_description }
-     */
+	/**
+	 * @brief File containing the active time of the pwm
+	 */
     std::ofstream _dutyCycle;
-    /**
-     * { item_description }
-     */
+	/**
+	 * @brief File setting the activation of the GPIO
+	 */
     std::ofstream _gpio;
-    /**
-     * { item_description }
-     */
+	/**
+	 * @brief Period setting
+	 */
     int _period;
     /**
-     * { item_description }
+     * @brief Buffer value
      */
     int _value;
-    
 };
 
 #endif

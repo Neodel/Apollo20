@@ -25,16 +25,16 @@ class Encoder{
 
 public:
 	/**
-	 * @brief      constructor of the class encoder.
+	 * @brief      Constructor of the class encoder.
 	 *
-	 * @param[in]  eqepPath  The eqep path of the port
+	 * @param[in]  eqepPath  The EQEP path of the port
 	 */
     Encoder(std::string eqepPath);
     
     /**
-     * @brief      read the value of the equep port
+     * @brief      Read the value of the EQEP port
      *
-     * @return     (long) the value of the data port 
+     * @return     (long) The value of the data port
      */
     long read();
 
@@ -50,23 +50,23 @@ public:
     
 private:
 	/**
-	 * path of the eqep port 
+	 * Path of the EQEP port
 	 */
     std::string _eqepPath;
     /**
-     * the data coming from the equep is stored in this file stream. 
+     * The data coming from the EQEP is stored in this file stream
      */
     std::ifstream _eqep;
     /**
-     * ofset of the motor
+     * Ofset of the motor
      */
     long _ofset;
     /**
-     * Position of the motor red in the equep port.
+     * Position of the motor red in the EQEP ports
      */
     char _posStr[256];
     /**
-     * position of the motor
+     * Position of the motor
      */
     long _pos;
     
