@@ -1,6 +1,9 @@
 #ifndef POINT_H
 #define POINT_H
 
+#define ORG_X 0.0125
+#define ORG_Y 0.110
+
 /*!
  * \file Point.h
  * \brief Definition of two classes usefull for geometric models
@@ -10,7 +13,7 @@
 #include <cmath>
 
 #ifndef PI
-#define PI 3.141597
+#define PI 3.14159265
 #endif
 
 /*!

@@ -2,7 +2,11 @@
 #include "Point.h"
 #include "Controller.h"
 #include "geom_inv.h"
+#include "geom_direct.h"
 
+std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
+void follow(Controller * controller,ServerGUI * serverGUI, std::vector<Point> points);
+std::vector<Point> readPathFile(const char * nameFile);
 
 ServerGUI::ServerGUI(Controller * controller)
 {
@@ -81,26 +85,84 @@ bool ServerGUI::sendArti(){
 //
 bool ServerGUI::readMsg()
 {
-	char buffer[1024] = {0};
+	char buffer[100] = {0};
 	
 	read( _newSocket , buffer, 1024); // get the message in buffer
 	printf("%s\n",buffer ); // print result 
+	
+	Cmd cmd;
+	std::vector<Point> pts;
+	Point p,p1;
+	int xFlag;
+	std::string bufferX ;
+    std::string bufferY ;
+	
 	switch(buffer[0]){
 		case 'i' : 
 			std::cout<<"init"<<std::endl;
-			// TODO init
+		    p.x = ORG_X;
+		    p.y = ORG_Y;
+			_controller->set(geomInv(p));
+			
 			this->readMsg();
+			
 			break;
+			
 		case 's' :
-			std::cout<<"send : "<<buffer<<std::endl;
-			// TODO send
+
+			pts.clear();
+			cmd.q1 = _controller->getPos1();
+			cmd.q5 = _controller->getPos2();
+			p1 = geomDirect(cmd);
+			pts.push_back(p1);
+			
+			for(int i = 2;i<100;i++) buffer[i-2] = buffer[i];
+			
+			xFlag=0;
+			bufferX = "";
+			bufferY = "";
+			for (auto c : buffer) {
+			    if(c == ','){
+			        xFlag=1;
+			    }
+			    else if( xFlag == 0){
+			        bufferX += c;
+			    }
+			    else if( xFlag == 1){
+			        bufferY += c;
+			    }
+			}
+			
+			p.x = stof(bufferX); // revesed (12_01_19)
+			p.y = stof(bufferY);
+			
+			std::cout<<"send "<<p.x<<" "<<p.y<<std::endl;
+		
+			pts.push_back(p);	
+			
+			//pts= interpolationTrajectory(pts);
+			
+			follow(_controller,this,pts);
+
+
 			this->readMsg();
 			break;
 		case 'r' :
+			pts.clear();
+			pts = readPathFile("data.txt");
 			std::cout<<"run"<<std::endl;
+			
+			pts = interpolationTrajectory(pts);
+			
+			follow(_controller,this,pts);
+			
+			this->readMsg();
+			break;
+		case 'e':
 			break;
 		default:
 			std::cout<< "not readable : " << buffer << std::endl;
+			this->readMsg();
 		
 	}
 	

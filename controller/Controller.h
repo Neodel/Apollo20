@@ -14,8 +14,6 @@
 #define TIC_ENCODER 360
 #define REDUCTION 1.9
 
-#define PI 3.14159265
-
 
 #define THRESHOLD_C 0.5
 
