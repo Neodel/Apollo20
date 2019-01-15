@@ -4,9 +4,11 @@ This project aims to control a 5R-plan drawer robot through a GUI. To do so, we 
 
 
 Authors : Loïc Kerboriou, Justin Bezieau, Nicolas Cheron, Johann Huber
+
 Release : January 2019
 
 Polytech Sorbonne Engineering School - Major in Robotics
+
 Location : Paris, France
 
 Teacher : Ludovic Saint-Bauzel
@@ -71,12 +73,6 @@ Add additional notes about how to deploy this on a live system
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
