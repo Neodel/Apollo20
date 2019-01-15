@@ -6,10 +6,14 @@ from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
                           QThreadPool, pyqtSignal)
 
 import socket
-
+#gwew9088
 import sys
 from threading import Thread
 from time import sleep
+
+hote = "192.168.7.2"
+port = 15555
+
 
 
 class ReadThread(QThread):
@@ -19,14 +23,22 @@ class ReadThread(QThread):
     def __init__(self):
         QtCore.QThread.__init__(self)
 
+        print("start socket on " + hote + " : " + str(port))
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((hote, port))
+        print("connected")
+
     def run(self):
-        count = 0
-        while count < 5:
-            sleep(1)
-            print("A Increasing")
-            count += 1
-            success = count
-            self.sig.emit("1.0,2.0")
+    	while(1):
+    	    pos=self.socket.recv(255)
+    	    if(len(pos)!=0):
+    	        print("recv : " + pos)
+                self.sig.emit(pos)
+
+    def send(self, msg):
+        self.socket.send(msg)
+
+
 
 
 class Client(QMainWindow,):
@@ -35,8 +47,8 @@ class Client(QMainWindow,):
 
     def showPos(self,pos):
     	print("sig recieved " + pos)
-        self.y_actu.setText(pos.split(',')[0])
-        self.x_actu.setText(pos.split(',')[1])
+        self.x_actu.setText(pos.split(',')[0])
+        self.y_actu.setText(pos.split(',')[1])
 
     def init(self):
         #window
@@ -75,13 +87,17 @@ class Client(QMainWindow,):
     def send_pushed(self):
     	x = float(self.x.toPlainText())
     	y = float(self.y.toPlainText())
-    	print("send: " + x + " " + y)
+    	msg = "s:" + str(x) + "," + str(y)
+    	print("send: " + msg)
+
+    	self.readThread.send(msg)
 
     def launch(self):
     	pass
 
     def init_pushed(self):
-    	pass # do server stuff
+    	print("send: i") 
+    	self.readThread.send("i")
 
 
 
