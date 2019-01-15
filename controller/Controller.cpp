@@ -23,7 +23,7 @@ Controller::~Controller(){
     _driver2.~Driver();
 }
 
-void Controller::write(std::vector<Point*> points ){
+void Controller::write(std::vector<Point*> points ){//Depreciated
     for (auto p : points) {
        this->write(p->x, p->y);
        while(! this->achieved())
@@ -40,7 +40,7 @@ float Controller::getPos2(){
     return this->_encoder2.read() * this->_ratio;
 }
 
-void Controller::write(float m1, float m2){
+void Controller::write(float m1, float m2){ //depreciated
     this->_target1 = m1;
     this->_target2 = m2;
 }

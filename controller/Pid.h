@@ -10,7 +10,7 @@
 
 #define N_ERROR 5
 /**
- * @brief      Class for pid.
+ * @brief      Class that implements a proportionnal intefrated and derived controller.
  */
 class Pid {
     public:
@@ -18,46 +18,53 @@ class Pid {
          * @brief      Constructs the object pid.
          *
          * @param[in]  kp    Proportional gain
-         * @param[in]  kd    derived gain
-         * @param[in]  ki    integrator gain
+         * @param[in]  kd    derivative gain
+         * @param[in]  ki    integral gain
          */
         Pid(float kp, float kd, float ki);
+
         /**
          * @brief      { function_description }
          *
-         * @param[in]  error  The error
+         * @param[in]  error  The error between the current value and the value targetted.
          *
-         * @return     { description_of_the_return_value }
+         * @return     the command that will be sent to the pwm port of the motor. It is an int value because it is the type asked by the pwm port.
          */
         int correction(float error);
     
     private:
         /**
-         * { item_description }
+         * Proportionnal gain of the pid.
          */
         float _kp;
+
         /**
-         * { item_description }
+         * Derivative gain of the pid.
          */
         float _kd;
+
         /**
-         * { item_description }
+         * Integral gain of the pid.
          */
         float _ki;
+
         /**
-         * { item_description }
+         * Error at last execution of the loop. It is used to calculate the derivative part of the controller.
          */
         float _previous_error;
+
         /**
-         * { item_description }
+         * Sum of all previous errors.
          */
         float _sum_error;
+
         /**
-         * { item_description }
+         * Time at the end of the last execution. It is needed to calculate the time difference between the two executions. Used for the derivative part of the controller.
          */
         clock_t _prev_time;
+
         /**
-         * { item_description }
+         * Int value sent to the motors through the pwm ports.
          */
         int _correction;
 };
