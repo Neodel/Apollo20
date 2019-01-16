@@ -24,7 +24,7 @@ class Pid {
         Pid(float kp, float kd, float ki);
 
         /**
-         * @brief      { function_description }
+         * @brief      Compute the PID correction.
          *
          * @param[in]  error  The error between the current value and the value targetted.
          *
