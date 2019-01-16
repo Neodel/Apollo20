@@ -8,7 +8,7 @@ TARGET = Main
 OBJ = Encoder.o Controller.o Driver.o Pid.o Main.o geom.o  ServerGUI.o
 
 
-all : $(TARGET)
+all : $(TARGET) doc
 
 
 %.o: %.c $(DEPS)
@@ -20,3 +20,6 @@ $(TARGET): $(OBJ)
 	
 clean:
 	rm -rf $(TARGET) *.o
+
+
+

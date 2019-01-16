@@ -1,0 +1,152 @@
+\hypertarget{class_controller}{}\section{Controller Class Reference}
+\label{class_controller}\index{Controller@{Controller}}
+
+
+class for the controler. This is the main object of the project. It is composed of drivers, encoders and pid objects. During the execution of the project, the encoders will be read, these values will be changed through the pid and send to the motors.  
+
+
+
+
+{\ttfamily \#include $<$Controller.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controller_a95c56822d667e94b031451729ce069a9}\label{class_controller_a95c56822d667e94b031451729ce069a9}} 
+\mbox{\hyperlink{class_controller_a95c56822d667e94b031451729ce069a9}{Controller}} ()
+\begin{DoxyCompactList}\small\item\em constructor of the controler \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controller_a0ab87934c4f7a266cfdb86e0f36bc1b5}\label{class_controller_a0ab87934c4f7a266cfdb86e0f36bc1b5}} 
+\mbox{\hyperlink{class_controller_a0ab87934c4f7a266cfdb86e0f36bc1b5}{$\sim$\+Controller}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_controller_a87fda36917f4b5dd6d72ef2621f68ca2}{write}} (float m1, float m2)
+\begin{DoxyCompactList}\small\item\em function that change the target value for motors. Depreciated method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_controller_aacc0037377a9e09ed7558a229785516a}{write}} (std\+::vector$<$ \mbox{\hyperlink{struct_point}{Point}} $\ast$ $>$ points)
+\begin{DoxyCompactList}\small\item\em Function that move the motors to reach a list of points. Depreciated method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_controller_a68ebf75325d5f6731279f52bef348757}{write}} (\mbox{\hyperlink{struct_cmd}{Cmd}} const \&cmd)
+\begin{DoxyCompactList}\small\item\em Function that change the target value for the motors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controller_a9ec8c2d4a68acccd118537c36894e516}\label{class_controller_a9ec8c2d4a68acccd118537c36894e516}} 
+void \mbox{\hyperlink{class_controller_a9ec8c2d4a68acccd118537c36894e516}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Function that listens to the encoders, uses the pid to find the command to send and sends it. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_controller_a83e3d022550cade03428a2b3d652d44e}{achieved}} ()
+\begin{DoxyCompactList}\small\item\em Function that checks if the joint position asked is reached. This position is reached if the difference is under a epsilon. This epsilon is a constant value and must be greater than the encoder tic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_controller_ada97ae2907e98c1da834c1eb97b5ab30}{set}} (\mbox{\hyperlink{struct_cmd}{Cmd}} const \&cmd)
+\begin{DoxyCompactList}\small\item\em This function sets the value of the encoder. It is used for the initialisation of the starting point. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_controller_a4c61c7da0184034877c220fd4e956dc6}{get\+Pos1}} ()
+\begin{DoxyCompactList}\small\item\em Gets the position of the motor1 using its encoder. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_controller_a83ab5840be5fa59e1a56397eda27f062}{get\+Pos2}} ()
+\begin{DoxyCompactList}\small\item\em Gets the position of the motor2 using its encoder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class for the controler. This is the main object of the project. It is composed of drivers, encoders and pid objects. During the execution of the project, the encoders will be read, these values will be changed through the pid and send to the motors. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_controller_a83e3d022550cade03428a2b3d652d44e}\label{class_controller_a83e3d022550cade03428a2b3d652d44e}} 
+\index{Controller@{Controller}!achieved@{achieved}}
+\index{achieved@{achieved}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{achieved()}{achieved()}}
+{\footnotesize\ttfamily bool Controller\+::achieved (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function that checks if the joint position asked is reached. This position is reached if the difference is under a epsilon. This epsilon is a constant value and must be greater than the encoder tic. 
+
+\begin{DoxyReturn}{Returns}
+True if the position is reached, False otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controller_a4c61c7da0184034877c220fd4e956dc6}\label{class_controller_a4c61c7da0184034877c220fd4e956dc6}} 
+\index{Controller@{Controller}!getPos1@{getPos1}}
+\index{getPos1@{getPos1}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{getPos1()}{getPos1()}}
+{\footnotesize\ttfamily float Controller\+::get\+Pos1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the position of the motor1 using its encoder. 
+
+\begin{DoxyReturn}{Returns}
+The value of the encoder1 in radian. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controller_a83ab5840be5fa59e1a56397eda27f062}\label{class_controller_a83ab5840be5fa59e1a56397eda27f062}} 
+\index{Controller@{Controller}!getPos2@{getPos2}}
+\index{getPos2@{getPos2}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{getPos2()}{getPos2()}}
+{\footnotesize\ttfamily float Controller\+::get\+Pos2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the position of the motor2 using its encoder. 
+
+\begin{DoxyReturn}{Returns}
+The value of the encoder2 in radian. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controller_ada97ae2907e98c1da834c1eb97b5ab30}\label{class_controller_ada97ae2907e98c1da834c1eb97b5ab30}} 
+\index{Controller@{Controller}!set@{set}}
+\index{set@{set}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily void Controller\+::set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cmd}{Cmd}} const \&}]{cmd }\end{DoxyParamCaption})}
+
+
+
+This function sets the value of the encoder. It is used for the initialisation of the starting point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & The command. cmd.\+q1 is the value set to the encoder1, cmd.\+q5 is set to the encoder2. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_controller_a87fda36917f4b5dd6d72ef2621f68ca2}\label{class_controller_a87fda36917f4b5dd6d72ef2621f68ca2}} 
+\index{Controller@{Controller}!write@{write}}
+\index{write@{write}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Controller\+::write (\begin{DoxyParamCaption}\item[{float}]{m1,  }\item[{float}]{m2 }\end{DoxyParamCaption})}
+
+
+
+function that change the target value for motors. Depreciated method. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em m1} & The command for motor1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em m2} & The command for motor2 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_controller_aacc0037377a9e09ed7558a229785516a}\label{class_controller_aacc0037377a9e09ed7558a229785516a}} 
+\index{Controller@{Controller}!write@{write}}
+\index{write@{write}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Controller\+::write (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_point}{Point}} $\ast$ $>$}]{points }\end{DoxyParamCaption})}
+
+
+
+Function that move the motors to reach a list of points. Depreciated method. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em points} & list of articular positions. points\mbox{[}i\mbox{]}.x is the value for motor1, points\mbox{[}i\mbox{]}.y for motor2. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_controller_a68ebf75325d5f6731279f52bef348757}\label{class_controller_a68ebf75325d5f6731279f52bef348757}} 
+\index{Controller@{Controller}!write@{write}}
+\index{write@{write}!Controller@{Controller}}
+\subsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Controller\+::write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cmd}{Cmd}} const \&}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Function that change the target value for the motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & The command for the motors. cmd.\+q1 is for motor1 and cmd.\+q5 for motor2. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Controller.\+h\item 
+Controller.\+cpp\end{DoxyCompactItemize}
