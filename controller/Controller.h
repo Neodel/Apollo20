@@ -91,6 +91,12 @@ class Controller {
          * @return     The value of the encoder2 in radian.
          */
         float getPos2();
+        
+        /**
+         * @brief      stop the motrs
+         * 
+         */
+         void endTravel();
 
     private:
         /**

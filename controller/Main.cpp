@@ -81,8 +81,8 @@ void follow(Controller * controller,ServerGUI * serverGUI, std::vector<Point> po
 	   }while(!ok);  
 	   
 	}
-	
-	std::cout<< "final error " << error/iter<< std::endl;
+	controller->endTravel();
+	std::cout<< "final mean error --- " << error/iter<< std::endl;
 }
 
 bool achieved(Point p, float q1, float q5){

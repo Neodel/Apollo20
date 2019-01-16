@@ -132,14 +132,14 @@ bool ServerGUI::readMsg()
 			    }
 			}
 			
-			p.x = stof(bufferX); // revesed (12_01_19)
+			p.x = stof(bufferX); 
 			p.y = stof(bufferY);
 			
 			std::cout<<"send "<<p.x<<" "<<p.y<<std::endl;
 		
 			pts.push_back(p);	
 			
-			//pts= interpolationTrajectory(pts);
+			pts = interpolationTrajectory(pts);
 			
 			follow(_controller,this,pts);
 
@@ -148,8 +148,9 @@ bool ServerGUI::readMsg()
 			break;
 		case 'r' :
 			pts.clear();
-			pts = readPathFile("data.txt");
-			std::cout<<"run"<<std::endl;
+			for(int i = 2;i<100;i++) buffer[i-2] = buffer[i];
+			pts = readPathFile(buffer);
+			std::cout<<"run"<<buffer<<std::endl;
 			
 			pts = interpolationTrajectory(pts);
 			

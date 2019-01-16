@@ -23,6 +23,11 @@ Controller::~Controller(){
     _driver2.~Driver();
 }
 
+void Controller::endTravel(){
+    _driver1.write(0);
+    _driver2.write(0);
+}
+
 void Controller::write(std::vector<Point*> points ){//Depreciated
     for (auto p : points) {
        this->write(p->x, p->y);
