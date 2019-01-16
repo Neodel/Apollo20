@@ -21,6 +21,13 @@
 #define R_OT_O2 sqrt( (L2 + LT*sqrt(2)/2)*(L2 + LT*sqrt(2)/2) +  (LT*sqrt(2)/2)*(LT*sqrt(2)/2) ) // = rayon1
 
 
+//#define DEBUG_GEOM_DIR
+
+//#define DEBUG_GEOM_INV
+Point geomDirect(Cmd const& cmd);
+
+
+
 /*!
  *  \brief Circles intersection finding
  *

@@ -1,8 +1,7 @@
 #include "ServerGUI.h"
 #include "Point.h"
 #include "Controller.h"
-#include "geom_inv.h"
-#include "geom_direct.h"
+#include "geom.h"
 
 std::vector<Point> interpolationTrajectory(std::vector<Point> vPoints);
 void follow(Controller * controller,ServerGUI * serverGUI, std::vector<Point> points);

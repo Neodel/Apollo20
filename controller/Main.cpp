@@ -10,8 +10,7 @@
 #include <unistd.h>
 
 #include "Point.h"
-#include "geom_inv.h"
-#include "geom_direct.h"
+#include "geom.h"
 #include "ServerGUI.h"
 
 #define THRESHOLD  0.005
