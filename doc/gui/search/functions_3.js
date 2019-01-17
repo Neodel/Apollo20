@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['run',['run',['../classgui_1_1ReadThread.html#a2f8f47cfa1edaef1fe2a1ae67e9fdf83',1,'gui::ReadThread']]],
-  ['run_5fpushed',['run_pushed',['../classgui_1_1Client.html#acace10f616929844924c011a0bc9b676',1,'gui::Client']]]
+  ['init',['init',['../classgui_1_1Client.html#a37f35d30e7673a33a299db29603377e9',1,'gui::Client']]],
+  ['init_5fpushed',['init_pushed',['../classgui_1_1Client.html#a4eb7f3bb5344e1cecd2b438a9b76de6c',1,'gui::Client']]]
 ];
