@@ -20,68 +20,37 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Qt library (for the GUI)
 
 ```
-Give examples
+https://wiki.qt.io/Install_Qt_5_on_Ubuntu
 ```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Python
 
 ```
-Give the example
+$ sudo apt-get install python3.6
 ```
 
-And repeat
+
+### Installing & initializing 
+
+Connect components as described in the Connectic part of the user documentation (p.7).
+
+Launch the main python script with the following command on a new shell :
 
 ```
-until finished
+$ python {nom du script et son path}
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+The GUI will then appears on your workstation. 
 
-## Running the tests
+Put manually the robot effector on the origin marker, and clic on the init button
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+The system is now initialized, you can start drawing with Apollo 20.
 
 
-## Contributing
+## Running the test
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+While making sure the system has been initialized, run the path following by hitting the init button.
 
 
