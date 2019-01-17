@@ -39,7 +39,7 @@ Connect components as described in the Connectic part of the user documentation 
 Launch the main python script with the following command on a new shell :
 
 ```
-$ python {nom du script et son path}
+$ python gui.py
 ```
 
 The GUI will then appears on your workstation. 
@@ -51,6 +51,15 @@ The system is now initialized, you can start drawing with Apollo 20.
 
 ## Running the test
 
-While making sure the system has been initialized, run the path following by hitting the init button.
+1) plug the beagle bone to the computer
+2) launch the gui ($ python gui.py)
+3) press init
+4) press run controller (you should ear a pleasing soung
+5) press connect and check on the terminal if it work, if not, go to the point 5
+6) place the robot on his origin spot and pres org
+7) now you can run the file on the board for the rectange
+   or you can enter a position in x and y field
+   or put your own file in the same folder as the gui.py enter his name in the filename field
 
+8) for stopping the pleasing sound clic on stop
 
