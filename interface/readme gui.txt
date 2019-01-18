@@ -43,3 +43,13 @@ filename area : filename of the local file run by the run local file button (sti
 run dist file : run the file on the field before it on the beagle bone 
 
 run local file : run the file on the field before it on the computer 
+
+
+dependencies
+PyQt5
+errno
+subprocess
+socket
+sys
+threading
+time
