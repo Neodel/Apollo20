@@ -51,15 +51,12 @@ The system is now initialized, you can start drawing with Apollo 20.
 
 ## Running the test
 
-1) plug the beagle bone to the computer
-2) launch the gui ($ python gui.py)
-3) press init
-4) press run controller (you should ear a pleasing soung
-5) press connect and check on the terminal if it work, if not, go to the point 5
-6) place the robot on his origin spot and pres org
-7) now you can run the file on the board for the rectange
-   or you can enter a position in x and y field
-   or put your own file in the same folder as the gui.py enter his name in the filename field
-
+1) Plug the beagle bone to the computer.
+2) Launch the gui ($ python gui.py)
+3) Press init.
+4) Press run controller (you should ear a pleasing sound).
+5) Press connect and check on the terminal if it work, if not, go to the point 5
+6) Place the robot on his origin spot and pres org
+7) Now you can run the file on the board for the rectangle, or you can enter a position in x and y field, or put your own file in the same folder as the gui.py enter his name in the filename field
 8) for stopping the pleasing sound clic on stop
 
