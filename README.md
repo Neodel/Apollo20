@@ -7,7 +7,7 @@ Authors : Loïc Kerboriou, Justin Bezieau, Nicolas Cheron, Johann Huber
 
 Release : January 2019
 
-Polytech Sorbonne Engineering School - Major in Robotics
+Sorbonne University Engineering School - Major in Robotics
 
 Location : Paris, France
 
